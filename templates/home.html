@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Multi-line Text Box Input</title>
+        <style>
+            /* CSS styles to adjust width and height of the form */
+            .container {
+                max-width: 600px; /* Adjust the max-width as needed */
+                margin: 0 auto; /* Centers the form horizontally */
+            }
+            textarea {
+                width: 100%; /* Makes the textarea width 100% of the container */
+                height: 150px; /* Sets the initial height of the textarea to 150px */
+                padding: 10px; /* Adds padding inside the textarea */
+                box-sizing: border-box; /* Ensures padding and border are included in the width */
+                resize: vertical; /* Allows vertical resizing of the textarea */
+            }
+            button[type="submit"] {
+                width: 100%; /* Makes the button width 100% of the container */
+                padding: 10px; /* Adds padding inside the button */
+                box-sizing: border-box; /* Ensures padding and border are included in the width */
+                margin-top: 10px; /* Adds margin on top of the button */
+                background-color: #4CAF50; /* Green background */
+                color: white; /* White text color */
+                border: none; /* No border */
+                cursor: pointer; /* Pointer cursor */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Enter Text:</h2>
+            <form action="/process_input" method="post">
+                <textarea id="user_input" name="user_input" placeholder="Type here..."></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </body>
+</html>
