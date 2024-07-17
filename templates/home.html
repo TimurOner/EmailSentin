@@ -1,40 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Multi-line Text Box Input</title>
-        <style>
-            /* CSS styles to adjust width and height of the form */
-            .container {
-                max-width: 600px; /* Adjust the max-width as needed */
-                margin: 0 auto; /* Centers the form horizontally */
-            }
-            textarea {
-                width: 100%; /* Makes the textarea width 100% of the container */
-                height: 150px; /* Sets the initial height of the textarea to 150px */
-                padding: 10px; /* Adds padding inside the textarea */
-                box-sizing: border-box; /* Ensures padding and border are included in the width */
-                resize: vertical; /* Allows vertical resizing of the textarea */
-            }
-            button[type="submit"] {
-                width: 100%; /* Makes the button width 100% of the container */
-                padding: 10px; /* Adds padding inside the button */
-                box-sizing: border-box; /* Ensures padding and border are included in the width */
-                margin-top: 10px; /* Adds margin on top of the button */
-                background-color: #4CAF50; /* Green background */
-                color: white; /* White text color */
-                border: none; /* No border */
-                cursor: pointer; /* Pointer cursor */
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h2>Enter Text:</h2>
-            <form action="/process_input" method="post">
-                <textarea id="user_input" name="user_input" placeholder="Type here..."></textarea>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    </body>
-</html>
+<head>
+    <meta charset="UTF-8">
+    <title>Multi-line Text Box Input</title>
+    <style>
+        /* Base styles */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        /* Textarea styles */
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            box-sizing: border-box;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        /* Dropdown container styles */
+        .dropdown-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        /* Individual dropdown styles */
+        .dropdown {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .styled-select select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Button styles */
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-top: 10px;
+            background-color: #449b47; /* Adjusted background color */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Enter Text:</h2>
+        <form id="input_form" action="/process_input" method="post">
+            <textarea id="user_input" name="user_input" placeholder="Type here..."></textarea>
+            <button type="submit">Submit</button>
+
+            <div class="dropdown-container">
+                <div class="dropdown">
+                    <h2>Choose Lexicon</h2>
+                    <div class="styled-select">
+                        <select id="lex_name" name="lex_name">
+                            <option value="AFINN-96">AFINN-96</option>
+                            <option value="AFINN-111">AFINN-111</option>
+                            <option value="VADER">VADER</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="dropdown">
+                    <h2>Choose Method</h2>
+                    <div class="styled-select">
+                        <select id="select2" name="select2">
+                            <option value="Rule Based">Rule Based</option>
+                            
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+        <h2>Output:</h2>
+        <textarea id="output" readonly></textarea>
+
+        
+    </div>
+
+    <script>
+        // Function to update the output textarea
+        function updateOutput(outputText) {
+            document.getElementById('output').value = outputText;
+        }
+
+        // Update the output when the page loads
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Assuming outputText is passed from the Flask server
+            var outputText = "{{ outputText|safe }}";
+            updateOutput(outputText);
+        });
+
+        function fetchDataAndRender() {
+            fetch('/api/data')  // Replace with your server endpoint
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('dynamic-content').innerHTML = `
+                        <p>${data.message}</p>
+                        <p>Updated at: ${new Date().toLocaleString()}</p>
+                    `;
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        // Event listener for button click
+        document.getElementById('fetch-button').addEventListener('click', fetchDataAndRender);
+    </script>
+
+
