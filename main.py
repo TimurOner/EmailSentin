@@ -37,7 +37,7 @@ def process_input():
       processed_output = str(sid.polarity_scores(user_input))
 
     # Optionally, you can send the processed output to a frontend template
-    return render_template('home.html', outputText=processed_output)
+    return processed_output
 
 if __name__ == '__main__':
     app.run(debug=False)
