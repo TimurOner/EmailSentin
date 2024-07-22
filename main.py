@@ -22,22 +22,9 @@ def home():
 @app.route('/process_input', methods=['POST'])
 def process_input():
     user_input = request.form['user_input']
-    # Process user_input (e.g., perform operations, calculations, etc.)
-    # For now only simple Rule Based sentiment analysis.
     lexicon = request.form['lex_name']
-
-    if lexicon!='VADER':
-      processed_output = str(pos_neg(user_input,lexicon))
-
-    else:
-      from nltk.sentiment.vader import SentimentIntensityAnalyzer
-      import nltk
-      nltk.download('vader_lexicon')
-      sid = SentimentIntensityAnalyzer()
-      processed_output = str(sid.polarity_scores(user_input))
-
-    # Optionally, you can send the processed output to a frontend template
-    return processed_output
+    score = str(pos_neg(user_input,lexicon))
+    return score
 
 if __name__ == '__main__':
     app.run(debug=False)
