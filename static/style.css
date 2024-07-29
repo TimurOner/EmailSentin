@@ -1,0 +1,100 @@
+/* Base styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 50px; /* Adjust as needed */
+            background-color: #3498db; /* Default color */
+        }
+
+        .left {
+            background-color:  #3498db; /* Left sidebar color */
+        }
+
+        .right {
+            background-color:   #3498db; /* Right sidebar color */
+        }
+
+        .container {
+            flex: 1; /* Take up remaining space */
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9; /* Light background for contrast */
+            box-sizing: border-box; /* Include padding and border in width */
+        }
+
+        /* Textarea styles */
+        textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            resize: vertical;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        /* Dropdown container styles */
+        .dropdown-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        /* Individual dropdown styles */
+        .dropdown {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .styled-select select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        /* Button styles */
+        button[type="button"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-top: 10px;
+            background-color: #449b47; /* Adjusted background color */
+            color: white;
+            border: none;
+            border-radius: 5px; /* Rounded corners for the button */
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        button[type="button"]:hover {
+            background-color: #357a34; /* Darker background on hover */
+        }
+
+        /* Output textarea styles */
+        #output {
+            height: 150px;
+            border: 1px solid #ccc;
+            background-color: #fff; /* Background color for the output box */
+            padding: 10px; /* Ensure there's padding inside the output box */
+            overflow-y: auto; /* Enable vertical scrolling if needed */
+        }
+
+        /* Heading styles */
+        h2 {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            margin-top: 20px;
+        }

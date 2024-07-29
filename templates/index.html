@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Multi-line Text Box Input</title>
+    
+</head>
+<body>
+    <div class="sidebar left"></div>
+    <div class="container">
+        <h2>Enter Text:</h2>
+        <form id="input_form">
+            <textarea id="user_input" name="user_input" placeholder="Type here..."></textarea>
+            <div class="dropdown-container">
+                <div class="dropdown">
+                    <h2>Choose Lexicon</h2>
+                    <div class="styled-select">
+                        <select id="lex_name" name="lex_name">
+                            <option value="AFINN-96">AFINN-96</option>
+                            <option value="AFINN-111">AFINN-111</option>
+                            <option value="VADER">VADER</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <h2>Choose Method</h2>
+                    <div class="styled-select">
+                        <select id="select2" name="select2">
+                            <option value="Rule Based">Rule Based</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="submit_button">Submit</button>
+        </form>
+        <h2>Output:</h2>
+        <textarea id="output" readonly></textarea>
+    </div>
+    <div class="sidebar right"></div>
+
+    <script>
+        document.getElementById('submit_button').addEventListener('click', function() {
+            // Gather the form data
+            const formData = new FormData(document.getElementById('input_form'));
+
+            fetch('/process_input', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text()) // Expect a text response
+            .then(data => {
+                // Update the HTML content dynamically
+                document.getElementById('output').value = data;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
+</body>
+</html>

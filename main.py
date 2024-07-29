@@ -17,7 +17,7 @@ basic_auth = BasicAuth(app)
 @app.route('/')
 # @basic_auth.required
 def home():
-    return render_template('home.html')
+    return render_template('index.html')
 
 @app.route('/process_input', methods=['POST'])
 def process_input():
