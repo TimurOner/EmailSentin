@@ -48,13 +48,30 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.text()) // Expect a text response
+            .then(response => response.json()) // Expect a text response
             .then(data => {
-                // Update the HTML content dynamically
-                document.getElementById('output').value = data;
+                const inputTextDict = JSON.parse(data);
+                const score = inputTextDict['score']
+                const introText = inputTextDict['intro_text'];
+                const bodyText = inputTextDict['body_text'];
+
+                const inputProcessed = processString(introText, bodyText)
+
+
+
+                document.getElementById('output').value = score;
+                document.getElementById('user_input').innerHTML= inputProcessed;
             })
             .catch(error => console.error('Error fetching data:', error));
         });
+
+    function processString(firstStr, secondStr) {
+     const redFirstStr = `<span style="color: red;">${firstStr}</span>`;
+     const secondStr = `<span style="color: blue;">${ secondStr}</span>`;
+     const processedStr = redFirstStr + secondStr;
+
+     return processedStr;
+}
     </script>
 </body>
 </html>

@@ -1,11 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
+
 from flask_basicauth import BasicAuth
-import os,sys
-
-sys.path.append(os.path.abspath('rule_based'))
 
 
-from pos_neg import pos_neg
+
+
+from rule_based.pos_neg import pos_neg
+from sentence_based.tools.parser_tools import split_text
 
 app = Flask(__name__)
 
@@ -21,10 +22,27 @@ def home():
 
 @app.route('/process_input', methods=['POST'])
 def process_input():
+    # Retrieve form data from the request
     user_input = request.form['user_input']
     lexicon = request.form['lex_name']
-    score = str(pos_neg(user_input,lexicon))
-    return score
+
+    # Process the data
+    score = str(pos_neg(user_input, lexicon))  # Convert the score to a string if needed
+    intro_text, body_text = split_text(user_input)  # Assuming split_text is defined elsewhere
+
+    # Optional: Print the results for debugging
+    print(f"Intro Text: {intro_text}")
+    print(f"Body Text: {body_text}")
+
+    # Create the response dictionary
+    resp = {
+        'intro_text': intro_text,
+        'body_text': body_text,
+        'score': score
+    }
+
+    # Return a JSON response
+    return jsonify(resp)
 
 if __name__ == '__main__':
     app.run(debug=False)
