@@ -28,12 +28,10 @@ def process_input():
 
     # Process the data
     score = str(pos_neg(user_input, lexicon))  # Convert the score to a string if needed
-    intro_text, body_text = split_text(user_input)  # Assuming split_text is defined elsewhere
+    body_text,intro_text= split_text(user_input)  # Assuming split_text is defined elsewhere
 
-    # Optional: Print the results for debugging
-    print(f"Intro Text: {intro_text}")
-    print(f"Body Text: {body_text}")
-
+   
+   
     # Create the response dictionary
     resp = {
         'intro_text': intro_text,

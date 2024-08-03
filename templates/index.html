@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Multi-line Text Box Input</title>
-    
 </head>
 <body>
     <div class="sidebar left"></div>
@@ -36,6 +35,7 @@
         </form>
         <h2>Output:</h2>
         <textarea id="output" readonly></textarea>
+        <div id="user_input_display"></div> <!-- Element for displaying the colored text -->
     </div>
     <div class="sidebar right"></div>
 
@@ -48,30 +48,27 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json()) // Expect a text response
+            .then(response => response.json()) // Expect a JSON response
             .then(data => {
-                const inputTextDict = JSON.parse(data);
-                const score = inputTextDict['score']
-                const introText = inputTextDict['intro_text'];
-                const bodyText = inputTextDict['body_text'];
+                const score = data['score'];
+                const introText = data['intro_text'];
+                const bodyText = data['body_text'];
 
-                const inputProcessed = processString(introText, bodyText)
-
-
+                const inputProcessed = processString(introText, bodyText);
 
                 document.getElementById('output').value = score;
-                document.getElementById('user_input').innerHTML= inputProcessed;
+                document.getElementById('user_input_display').innerHTML = inputProcessed; // Display colored text
             })
             .catch(error => console.error('Error fetching data:', error));
         });
 
-    function processString(firstStr, secondStr) {
-     const redFirstStr = `<span style="color: red;">${firstStr}</span>`;
-     const secondStr = `<span style="color: blue;">${ secondStr}</span>`;
-     const processedStr = redFirstStr + secondStr;
+        function processString(firstStr, secondStr) {
+            const redFirstStr = `<span style="color: red;">${firstStr}</span>`;
+            const blueSecondStr = `<span style="color: blue;">${secondStr}</span>`;
+            const processedStr = redFirstStr + blueSecondStr;
 
-     return processedStr;
-}
+            return processedStr;
+        }
     </script>
 </body>
 </html>
