@@ -27,19 +27,6 @@
             box-sizing: border-box; /* Include padding and border in width */
         }
 
-        /* Textarea styles */
-        /* textarea {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            resize: vertical;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-        } */
-
         /* Dropdown container styles */
         .dropdown-container {
             display: flex;
@@ -82,16 +69,6 @@
             background-color: #357a34; /* Darker background on hover */
         }
 
-        /* Output textarea styles */
-        #output {
-            /* height: 150px;
-            border: 1px solid #ccc;
-            background-color: #fff; /* Background color for the output box */
-            /* padding: 10px; 
-            overflow-y: auto;  */
-        } 
-
-        /* Heading styles */
         h2 {
             font-family: Arial, sans-serif;
             font-size: 18px;

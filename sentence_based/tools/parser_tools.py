@@ -1,4 +1,4 @@
-path_greetings = r'C:\Users\timur\Documents\GitHub\EmailSentin\sentence_based\text_files\intros.txt'
+import re
 import pandas as pd
 
 path_greetings = r"C:\\Users\\timur\Documents\\GitHub\\EmailSentin\\sentence_based\\text_files\\intros.txt"
@@ -40,17 +40,44 @@ def get_greeting(email_text: str, path_greetings: str) -> str:
 
     return coma_sep_str
 
-def split_text(email_text: str) -> str:
-        # Ensure the text is a string
-        if not isinstance(email_text, str):
-            email_text = str(email_text)
+# def split_text(email_text: str) -> str:
         
-        # Find the index of the first comma
-        comma_index = email_text.find(',')
-        # If a comma is found, return the substring up to that comma
-        if comma_index != -1:
-            return email_text[comma_index:],email_text[:comma_index]
-        return None
+#         # Function that splits the string based on the first encountered coma.
+
+#         # Ensure the text is a string
+#         if not isinstance(email_text, str):
+#             email_text = str(email_text)
+        
+#         # Find the index of the first comma
+#         comma_index = email_text.find(',')
+#         # If a comma is found, return the substring up to that comma
+#         if comma_index != -1:
+#             return email_text[comma_index:],email_text[:comma_index]
+#         return None
+
+
+def get_email_components(email_text: str) -> str:
+
+    # Very simple component decomposer of the simplest email structure.
+
+    first_comma_index = email_text.find(',')
+    last_dot_index = email_text.rfind('.')
+
+    if first_comma_index == -1:
+        raise ValueError("Error: Comma not found in the email text.")
+    
+    if last_dot_index == -1:
+        raise ValueError("Error: Dot not found in the email text.")
+    
+    if last_dot_index <= first_comma_index:
+        raise ValueError("Error: The dot must be after the comma in the email text.")
+
+    greeting_text = email_text[:first_comma_index].strip()
+    body_text = email_text[first_comma_index+1:last_dot_index].strip()
+    conclusion_text = email_text[last_dot_index+1:].strip()
+
+
+    return greeting_text,body_text, conclusion_text
        
 
 def load_categories_to_dataframe(file_path, encoding='latin-1', delimiter=';', num_categories=5):

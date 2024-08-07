@@ -11,8 +11,9 @@ document.getElementById('submit_button').addEventListener('click', function() {
         const score = data['score'];
         const introText = data['intro_text'];
         const bodyText = data['body_text'];
+        const conclusionText = data['conclusion_text'];
 
-        const inputProcessed = processString(introText, bodyText);
+        const inputProcessed = processString(introText, bodyText,conclusionText);
 
         document.getElementById('output').value = score;
         document.getElementById('email_output').innerHTML = inputProcessed; // Display colored text
@@ -20,10 +21,14 @@ document.getElementById('submit_button').addEventListener('click', function() {
     .catch(error => console.error('Error fetching data:', error));
 });
 
-function processString(firstStr, secondStr) {
+function processString(firstStr, secondStr, thirdStr) {
     const redFirstStr = `<span style="color: red;">${firstStr}</span>`;
     const blueSecondStr = `<span style="color: blue;">${secondStr}</span>`;
-    const processedStr = redFirstStr + blueSecondStr;
-
+    const greenThirdStr = `<span style="color: green;">${thirdStr}</span>`;
+    
+    // Use <br> for line breaks
+    const processedStr = redFirstStr + '<br>' + blueSecondStr + '<br>' + greenThirdStr;
+    
     return processedStr;
 }
+
