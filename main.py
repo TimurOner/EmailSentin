@@ -4,7 +4,6 @@ from flask_basicauth import BasicAuth
 
 
 
-
 from rule_based.pos_neg import pos_neg
 from sentence_based.tools.parser_tools import split_text
 
