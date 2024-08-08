@@ -2,22 +2,20 @@ import sys,os
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import nltk
 
-sys.path.append(os.path.abspath('rule_based\pos_neg\preprocessing'))
-sys.path.append(os.path.abspath('data'))
-sys.path.append(os.path.abspath('rule_based\pos_neg\lexicons'))
+
 
 nltk.download('vader_lexicon')
                 
 
-from preprocess import preprocess 
-from lex_loader import load_lexicon  
-from data_loader import load_data
+from rule_based.pos_neg.preprocessing.preprocess import preprocess 
+from rule_based.pos_neg.lexicons.lex_loader import load_lexicon  
+from data.data_loader import load_data
 
 
-def pos_neg(input_text,lex_name):
+def pos_neg_score(input_text,lex_name):
 
    # For now possible lexicons: AFINN-111 and AFINN-96
-   
+
 
    if lex_name!='VADER':
   

@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from flask_basicauth import BasicAuth
 
 
-from rule_based.pos_neg import pos_neg
+from rule_based.pos_neg.pos_neg_run import pos_neg_score
 from sentence_based.tools.parser_tools import get_email_components
 
 
@@ -25,9 +25,11 @@ def process_input():
     # Retrieve form data from the request
     user_input = request.form['user_input']
     lexicon = request.form['lex_name']
+    method = request.form['method_name']
 
-    # Process the data
-    score = str(pos_neg(user_input, lexicon))  # Convert the score to a string if needed
+
+
+    score = str(pos_neg_score(user_input, lexicon))  # Convert the score to a string if needed
     intro_text,body_text,conclusion_text =  get_email_components(user_input)  # Assuming split_text is defined elsewhere
 
 

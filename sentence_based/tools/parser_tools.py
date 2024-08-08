@@ -146,3 +146,31 @@ def compute_valence(word_list: list, valence_lex_path: str, max_ngram: int = 3) 
       
 
     return valence/max_ngram
+
+
+def parse_to_sentences(body_text:str) -> list[str]:
+
+    separators = ['\.\.\.', '\.', '!', '\?']
+    
+    # Create a regular expression pattern to match any of the separators
+    pattern = '|'.join(separators)
+    
+    # Split the text based on the pattern
+    sentences = re.split(f'({pattern})', body_text)
+    
+    # Combine each separator back with its preceding sentence
+    result = []
+    current_sentence = ""
+    
+    for part in sentences:
+        if re.match(pattern, part):
+            current_sentence += part
+            result.append(current_sentence.strip())
+            current_sentence = ""
+        else:
+            current_sentence += part
+    
+    # Filter out any empty strings in the result
+    result = [s for s in result if s]
+    
+    return result
