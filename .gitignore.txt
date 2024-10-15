@@ -1,2 +1,4 @@
 data/email_enron
 env/
+
+sentence_based\models\model1

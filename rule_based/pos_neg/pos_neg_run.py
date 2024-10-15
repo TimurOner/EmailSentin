@@ -9,7 +9,7 @@ nltk.download('vader_lexicon')
 
 from rule_based.pos_neg.preprocessing.preprocess import preprocess 
 from rule_based.pos_neg.lexicons.lex_loader import load_lexicon  
-from data.data_loader import load_data
+
 
 
 def pos_neg_score(input_text,lex_name):
