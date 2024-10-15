@@ -27,51 +27,56 @@
         </nav>
     </header>
     <div class="container-fluid">
-        <div class="wrapper">
-            <div class="row">
-                <div class="col-2 sidebar left">
-                    <!-- Left Sidebar Content -->
-                </div>
-                <div class="col-8">
-                    <h2>Enter Text:</h2>
-                    <form id="input_form">
-                        <textarea class="form-control text_class" id="user_input" name="user_input" placeholder="Type here..."></textarea>
-                        <div class="dropdown-container">
-                            <div class="dropdown">
-                                <h2>Choose Lexicon</h2>
-                                <div class="styled-select">
-                                    <select id="lex_name" name="lex_name" class="form-select">
-                                        <option value="AFINN-96">AFINN-96</option>
-                                        <option value="AFINN-111">AFINN-111</option>
-                                        <option value="VADER">VADER</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <h2>Choose Analysis Type</h2>
-                                <div class="styled-select">
-                                    <select id="method_name" name="method_name" class="form-select">
-                                        <option value="pos-neg">Positive-Negative</option>
-                                        <option value="fom_inform">Formality Analysis</option>
-                                    </select>
-                                </div>
+        <div class="row">
+            <div class="col-2 sidebar left">
+                <!-- Left Sidebar Content -->
+            </div>
+            <div class="col-8">
+                <h2>Enter Text:</h2>
+                <form id="input_form">
+                    <textarea class="form-control text_class" id="user_input" name="user_input" placeholder="Type here..."></textarea>
+                    <div class="dropdown-container">
+                        <div class="dropdown">
+                            <h2>Choose Lexicon</h2>
+                            <div class="styled-select">
+                                <select id="lex_name" name="lex_name" class="form-select">
+                                    <option value="AFINN-96">AFINN-96</option>
+                                    <option value="AFINN-111">AFINN-111</option>
+                                    <option value="VADER">VADER</option>
+                                </select>
                             </div>
                         </div>
-                        <button type="button" id="submit_button" class="btn btn-primary mt-3">Submit</button>
-                    </form>
-                    <h2>Output:</h2>
-                    <textarea class="form-control text_class" id="output" readonly></textarea>
-                    <h2>Parsed Email:</h2>
-                    <div id="email_output" class="border p-3 mt-3">
-                        <!-- Email output content goes here -->
+                        <div class="dropdown">
+                            <h2>Choose Analysis Type</h2>
+                            <div class="styled-select">
+                                <select id="method_name" name="method_name" class="form-select">
+                                    <option value="pos-neg">Positive-Negative</option>
+                                    <option value="fom_inform">Formality Analysis</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
+                    <button type="button" id="submit_button" class="btn btn-primary mt-3">Submit</button>
+                </form>
+                <h2>Output:</h2>
+                <textarea class="form-control text_class" id="output" readonly></textarea>
+                <h2>Parsed Email:</h2>
+                <div id="email_output" class="border p-3 mt-3">
+                    <!-- Email output content goes here -->
                 </div>
-                <div class="col-2 sidebar right">
-                    
-                </div>
+            </div>
+            <div class="col-2 sidebar right">
+                <!-- Right Sidebar Content -->
             </div>
         </div>
     </div>
+    
+    <!-- Footer placed outside the row -->
+    <footer class="bg-light text-center py-3">
+        <p class="mb-0">© 2024 Email Sentiment Analyzer. All rights reserved.</p>
+    </footer>
+    
+   
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

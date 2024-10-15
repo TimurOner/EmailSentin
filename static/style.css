@@ -1,101 +1,129 @@
-/* Base styles */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            display: flex;
-        }
 
-        .sidebar {
-            width: 50px; /* Adjust as needed */
-            background-color: #3498db; /* Default color */
-        }
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
-        .left {
-            background-color:  #3498db; /* Left sidebar color */
-        }
+.col-8 {
+    flex-grow: 1; /* Allows the content area to expand as needed */
+}
 
-        .right {
-            background-color:   #3498db; /* Right sidebar color */
-        }
+.container-fluid {
+    flex: 1; /* Allows the container to take up available space */
+}
 
-        .container {
-            flex: 1; /* Take up remaining space */
-            padding: 20px;
-            background-color: #f9f9f9; /* Light background for contrast */
-            box-sizing: border-box; /* Include padding and border in width */
-        }
+.row {
+    flex: 1; /* Makes the row take up remaining space */
+}
 
-        /* Dropdown container styles */
-        .dropdown-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
+.footer {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    margin-top: auto; /* Ensures the footer stays at the bottom of the content */
+    position: relative;
+}
 
-        /* Individual dropdown styles */
-        .dropdown {
-            flex: 1;
-            margin-right: 10px;
-        }
 
-        .styled-select select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-        }
+.sidebar {
+    width: 50px; /* Adjust as needed */
+    background-color: #3498db; /* Default color */
+}
 
-        /* Button styles */
-        button[type="button"] {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            margin-top: 10px;
-            background-color: #449b47; /* Adjusted background color */
-            color: white;
-            border: none;
-            border-radius: 5px; /* Rounded corners for the button */
-            cursor: pointer;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-        }
+.left {
+    background-color:  #3498db; /* Left sidebar color */
+}
 
-        button[type="button"]:hover {
-            background-color: #357a34; /* Darker background on hover */
-        }
+.right {
+    background-color:   #3498db; /* Right sidebar color */
+}
 
-        h2 {
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-            margin-top: 20px;
-        }
+.container {
+    flex: 1; /* Take up remaining space */
+    background-color: #f9f9f9; /* Light background for contrast */
+    box-sizing: border-box; /* Include padding and border in width */
+}
 
-        .text_class{
-            border: 2px solid #333; /* Adds a solid border around the div */
-            padding: 20px; /* Adds space inside the border, between the border and the content */
-            background-color: #e0e0e0; /* Sets a light grey background color */
-            width: 90vw; /* Sets the width to 90% of the viewport width */
-            max-width: 1200px; /* Limits the maximum width of the div to 1200px */
-            margin: 20px auto; /* Centers the div horizontally and adds space above and below */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow effect for a 3D appearance */
-            border-radius: 8px; /* Rounds the corners of the div */
-            font-family: Arial, sans-serif; /* Sets the font for text inside the div */
-            font-size: 16px; /* Sets the font size for text inside the div */
-            color: #333; /* Sets the text color inside the div */
-        }
+/* Dropdown container styles */
+.dropdown-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
 
-        #email_output {
-            max-width: 100%; /* Ensures it doesn’t overflow the container */
-            width: 100%; /* Takes up full width within the container */
-            padding: 10px; /* Padding inside the div */
-            margin-top: 10px; /* Space above the div */
-            background-color: #f9f9f9; /* Light gray background */
-            border: 1px solid #ccc; /* Light gray border */
-            border-radius: 5px; /* Rounded corners */
-            box-sizing: border-box; /* Includes padding and border in the element's width */
-        }
+/* Individual dropdown styles */
+.dropdown {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.styled-select select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* Button styles */
+button[type="button"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    background-color: #449b47; /* Adjusted background color */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+button[type="button"]:hover {
+    background-color: #357a34; /* Darker background on hover */
+}
+
+h2 {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.text_class{
+    border: 2px solid #333; /* Adds a solid border around the div */
+    padding: 20px; /* Adds space inside the border, between the border and the content */
+    background-color: #e0e0e0; /* Sets a light grey background color */
+    width: 90vw; /* Sets the width to 90% of the viewport width */
+    max-width: 1200px; /* Limits the maximum width of the div to 1200px */
+    margin: 20px auto; /* Centers the div horizontally and adds space above and below */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow effect for a 3D appearance */
+    border-radius: 8px; /* Rounds the corners of the div */
+    font-family: Arial, sans-serif; /* Sets the font for text inside the div */
+    font-size: 16px; /* Sets the font size for text inside the div */
+    color: #333; /* Sets the text color inside the div */
+}
+
+#email_output {
+    max-width: 100%; /* Ensures it doesn’t overflow the container */
+    width: 100%; /* Takes up full width within the container */
+    padding: 10px; /* Padding inside the div */
+    margin-top: 10px; /* Space above the div */
+    background-color: #f9f9f9; /* Light gray background */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    box-sizing: border-box; /* Includes padding and border in the element's width */
+
+    height: 250px;
+    
+}
+
+
