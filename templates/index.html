@@ -50,8 +50,8 @@
                             <h2>Choose Analysis Type</h2>
                             <div class="styled-select">
                                 <select id="method_name" name="method_name" class="form-select">
-                                    <option value="pos-neg">Positive-Negative</option>
-                                    <option value="fom_inform">Formality Analysis</option>
+                                    <option value="pos_neg">Positive-Negative</option>
+                                    <option value="form_inform">Formality Analysis</option>
                                 </select>
                             </div>
                         </div>
@@ -60,15 +60,36 @@
                 </form>
                 <h2>Output:</h2>
                 <textarea class="form-control text_class" id="output" readonly></textarea>
-                <h2>Parsed Email:</h2>
-                <div id="email_output" class="border p-3 mt-3">
-                    <!-- Email output content goes here -->
+    
+                <div class="row">
+                    <div class="col-md-8">
+                        <h2>Parsed Email:</h2>
+                        <div id="email_output" class="border p-3 mt-3">
+                            <!-- Email output content goes here -->
+                        </div>
+                    </div>
+                    <div class="col-md-4 legend-section">
+                        <h4>Legend</h4>
+                        <ul class="list-unstyled">
+                            <li>
+                                <span class="legend-color legend-red"></span> Greeting
+                            </li>
+                            <li>
+                                <span class="legend-color legend-blue"></span> Body
+                            </li>
+                            <li>
+                                <span class="legend-color legend-green"></span> Conclusion
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="col-2 sidebar right">
                 <!-- Right Sidebar Content -->
             </div>
         </div>
+    </div>
+    
     </div>
     
     <!-- Footer placed outside the row -->

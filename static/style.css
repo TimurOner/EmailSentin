@@ -18,6 +18,7 @@ body, html {
 
 .row {
     flex: 1; /* Makes the row take up remaining space */
+    overflow-y: auto; /* Allow scrolling if content overflows */
 }
 
 .footer {
@@ -124,6 +125,45 @@ h2 {
 
     height: 250px;
     
+}
+
+
+
+
+
+
+
+/* Legend Styles */
+.text-red {
+    color: red;
+}
+.text-green {
+    color: green;
+}
+.text-green {
+    color: blue;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+
+.legend-red {
+    background-color: red;
+}
+.legend-green {
+    background-color: green;
+}
+.legend-blue {
+    background-color: blue;
+}
+
+.legend-section {
+    margin-top: 60px !important; /* Use !important to override any conflicting styles */
 }
 
 
