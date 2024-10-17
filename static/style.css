@@ -167,3 +167,12 @@ h2 {
 }
 
 
+.navbar-nav {
+    padding-left: 20px; /* Adjust as needed */
+}
+
+.nav-item {
+    margin-left: 15px; /* Adjust as needed */
+}
+
+
