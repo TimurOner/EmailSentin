@@ -54,8 +54,9 @@ body, html {
 /* Dropdown container styles */
 .dropdown-container {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    justify-content: space-around; /* Space between the elements */
+    align-items: center; /* Align items vertically */
+    gap: 330px; /* Optional: add more spacing between elements */
 }
 
 /* Individual dropdown styles */
@@ -79,7 +80,6 @@ button[type="button"] {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
-    margin-top: 10px;
     background-color: #449b47; /* Adjusted background color */
     color: white;
     border: none;
@@ -174,5 +174,23 @@ h2 {
 .nav-item {
     margin-left: 15px; /* Adjust as needed */
 }
+/* .lexicon-btn.active,
+.method-btn.active {
+    border: 2px solid #3498db !important;
+    box-shadow: 0 2px 10px rgba(0, 13, 255, 0.2) !important;
+    background-color: #2980b9 !important;
+    color: #3498db !important; /* Ensure the blue text color applies */
+    /* transition: background-color 0.3s ease, border 0.3s ease; */
 
+/* .lexicon-btn:hover,
+.method-btn:hover {
+    border: 2px solid #2980b9;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    background-color: #3498db;
+    color: #3498db; /* Keep the text blue on hover */
 
+    
+    
+    #submit_button {
+        margin-top: 100px !important; /* Increase the margin as needed */
+    }

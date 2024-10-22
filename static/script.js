@@ -2,6 +2,12 @@ document.getElementById('submit_button').addEventListener('click', function() {
     // Gather the form data
     const formData = new FormData(document.getElementById('input_form'));
 
+    // Store selected lexicon and method before submission
+    const selectedLexicon = document.getElementById('lex_name').value;
+    const selectedMethod = document.getElementById('method_name').value;
+    localStorage.setItem('selectedLexicon', selectedLexicon);
+    localStorage.setItem('selectedMethod', selectedMethod);
+
     fetch('/process_input', {
         method: 'POST',
         body: formData
@@ -13,10 +19,12 @@ document.getElementById('submit_button').addEventListener('click', function() {
         const bodyText = data['body_text'];
         const conclusionText = data['conclusion_text'];
 
-        const inputProcessed = processString(introText, bodyText,conclusionText);
+        const inputProcessed = processString(introText, bodyText, conclusionText);
 
         document.getElementById('output').value = score;
         document.getElementById('email_output').innerHTML = inputProcessed; // Display colored text
+
+    
     })
     .catch(error => console.error('Error fetching data:', error));
 });
@@ -31,4 +39,60 @@ function processString(firstStr, secondStr, thirdStr) {
     
     return processedStr;
 }
+
+function selectLexicon(value) {
+    // Update the hidden input with the selected lexicon value
+    document.getElementById('lex_name').value = value;
+
+    // Get all buttons in the lexicon group
+    const lexiconButtons = document.querySelectorAll('.lexicon-btn');
+
+    // Remove active class from all lexicon buttons
+    lexiconButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+
+    // Add active class to the clicked lexicon button
+    const clickedLexiconButton = Array.from(lexiconButtons).find(button => button.textContent === value);
+    if (clickedLexiconButton) {
+        clickedLexiconButton.classList.add('active');
+    }
+}
+
+function selectMethod(value) {
+    // Update the hidden input with the selected method value
+    document.getElementById('method_name').value = value;
+
+    // Get all buttons in the method group
+    const methodButtons = document.querySelectorAll('.method-btn');
+
+    // Remove active class from all method buttons
+    methodButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+
+    // Add active class to the clicked method button
+    const clickedMethodButton = Array.from(methodButtons).find(button => button.textContent === value);
+    if (clickedMethodButton) {
+        clickedMethodButton.classList.add('active');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Retrieve stored values from localStorage
+    const storedLexicon = localStorage.getItem('selectedLexicon');
+    const storedMethod = localStorage.getItem('selectedMethod');
+
+    // Set the values in the relevant inputs
+    if (storedLexicon) {
+        document.getElementById('lex_name').value = storedLexicon;
+        selectLexicon(storedLexicon); // Highlight the active button
+    }
+
+    if (storedMethod) {
+        document.getElementById('method_name').value = storedMethod;
+        selectMethod(storedMethod); // Highlight the active button
+    }
+});
+
 

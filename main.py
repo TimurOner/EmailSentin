@@ -35,9 +35,9 @@ def process_input():
     method = request.form['method_name']
 
 
-    if method == 'pos_neg':
+    if method == 'Positive-Negative':
      score = str(pos_neg_score(user_input, lexicon))  # Convert the score to a string if needed
-    elif method == 'form_inform':
+    elif method == 'Formality Analysis':
      score = str(form_inform_score(user_input,form_inform_model,word2vec_instance))  # Convert the score to a string if needed
     
 
