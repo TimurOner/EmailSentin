@@ -47,7 +47,6 @@ body, html {
 
 .container {
     flex: 1; /* Take up remaining space */
-    background-color: #f9f9f9; /* Light background for contrast */
     box-sizing: border-box; /* Include padding and border in width */
 }
 
@@ -169,6 +168,7 @@ h2 {
 
 .navbar-nav {
     padding-left: 20px; /* Adjust as needed */
+    background-color:#edf0f2;
 }
 
 .nav-item {
@@ -192,5 +192,10 @@ h2 {
     
     
     #submit_button {
-        margin-top: 100px !important; /* Increase the margin as needed */
+        margin-top: 20px !important; /* Increase the margin as needed */
+    }
+
+    #input_form {
+        margin-top: 100px; /* Adjust as needed */
+        margin-left: 15px;
     }
