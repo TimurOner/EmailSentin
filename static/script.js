@@ -1,4 +1,4 @@
-document.getElementById('submit_button').addEventListener('click', function() {
+function submitForm() {
     // Gather the form data
     const formData = new FormData(document.getElementById('input_form'));
 
@@ -15,19 +15,19 @@ document.getElementById('submit_button').addEventListener('click', function() {
     .then(response => response.json()) // Expect a JSON response
     .then(data => {
         const score = data['score'];
+        // const pred_class = data['pred_class']
         const introText = data['intro_text'];
         const bodyText = data['body_text'];
         const conclusionText = data['conclusion_text'];
 
         const inputProcessed = processString(introText, bodyText, conclusionText);
 
-        document.getElementById('output').value = score;
-        document.getElementById('email_output').innerHTML = inputProcessed; // Display colored text
-
-    
+        // document.getElementById('output').value = score;
+        // document.getElementById('email_output').innerHTML = inputProcessed; // Display colored text
+         updateResultCard(score);
     })
     .catch(error => console.error('Error fetching data:', error));
-});
+}
 
 function processString(firstStr, secondStr, thirdStr) {
     const redFirstStr = `<span style="color: red;">${firstStr}</span>`;
@@ -95,4 +95,53 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
+
+function updateResultCard(formalityScore) {
+    const resultCard = document.querySelector('.card_result'); // Target the card container
+    console.log("Result Card:", resultCard); // Log resultCard for debugging
+
+    if (!resultCard) {
+        console.log("Result card not found.");
+        return;
+    }
+
+    console.log("Result Card HTML:", resultCard.innerHTML); // Log the HTML of the result card for debugging
+
+    const resultAlert = resultCard.querySelector('.alert'); // Target the alert within the card
+    console.log("Result Alert:", resultAlert); // Log resultAlert for debugging
+
+    if (!resultAlert) {
+        console.log("Alert inside the card not found.");
+        return;
+    }
+
+    console.log("Result Alert HTML:", resultAlert.innerHTML); // Log the HTML of the alert for debugging
+
+    const resultHeading = resultAlert.querySelector('h4'); // Target the alert heading
+    if (!resultHeading) {
+        console.log("Heading inside the alert not found.");
+        return;
+    }
+
+    let resultText = resultAlert.querySelector('p'); // Try to find a paragraph element for result text
+    if (!resultText) {
+        console.log("Creating a new paragraph element for the result text.");
+        resultText = document.createElement('p');
+        resultAlert.appendChild(resultText);
+    }
+
+    // Change the text and color based on the formality score
+    if (formalityScore >= 0.5) {
+        console.log("Updating to formal style.");
+        resultAlert.className = 'alert alert-danger'; // Red for formal
+        resultHeading.textContent = 'Formal';
+        resultText.textContent = `Your text looks pretty formal with a formality score of ${formalityScore}.`;
+    } else {
+        console.log("Updating to informal style.");
+        resultAlert.className = 'alert alert-warning'; // Yellow for informal
+        resultHeading.textContent = 'Informal';
+        resultText.textContent = `Your text has informal tone with a formality score of ${formalityScore}.`;
+    }
+}
 
