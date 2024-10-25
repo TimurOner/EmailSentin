@@ -38,7 +38,7 @@
             <div class="col-8">
                 
                 <form id="input_form">
-                    <textarea class="form-control text_class mb-3" id="user_input" name="user_input" placeholder="Type here..."></textarea>
+                    <textarea class="form-control text_class mb-3" id="user_input" name="user_input" placeholder="Type here..." rows="5"></textarea>
                 
                     <div class="container">
                         <div class="row">
@@ -87,13 +87,14 @@
                 
                                         <!-- Danger Badge Below the Email Output -->
 
-                                        <div class="card_result" style="width: 28rem;">
+                                        <div class="card" id="unique-results-card" style="width: 28rem;">
                                             <div class="card-body">
                                                 <h5 class="card-title">Results</h5>
-                                                <div class="alert alert-danger" role="alert">
-                                                    <h4 class="alert-heading">Formal</h4>
+                                                <div class="alert alert-success" role="alert">
+                                                    <h4 class="alert-heading"></h4>
                                                     
-                                                  </div>
+                                                    <p>The results will be displayed here!</p>
+                                                </div>
                                             </div>
                                         </div>
                                         
@@ -123,11 +124,11 @@
                 
                 
                 
-                <!-- <h2>Output:</h2>
-                <textarea class="form-control text_class" id="output" readonly></textarea> -->
-                <div id="email_output" class="border p-3 mt-3">
-                    <!-- Email output content goes here -->
-                </div> 
+                 
+                <textarea class="form-control text_class" id="email_output" readonly placeholder="Your email output will appear here..."></textarea>
+                
+                
+                
 
             </div>
             <div class="col-2 sidebar right">

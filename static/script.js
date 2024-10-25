@@ -19,12 +19,14 @@ function submitForm() {
         const introText = data['intro_text'];
         const bodyText = data['body_text'];
         const conclusionText = data['conclusion_text'];
+        const entireText = data['entire_text']
 
         const inputProcessed = processString(introText, bodyText, conclusionText);
 
         // document.getElementById('output').value = score;
-        // document.getElementById('email_output').innerHTML = inputProcessed; // Display colored text
-         updateResultCard(score);
+        document.getElementById('email_output').innerHTML = entireText; // Display colored text
+        updateResultCard(score);
+         
     })
     .catch(error => console.error('Error fetching data:', error));
 }
@@ -98,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function updateResultCard(formalityScore) {
-    const resultCard = document.querySelector('.card_result'); // Target the card container
+    const resultCard = document.querySelector('#unique-results-card');
     console.log("Result Card:", resultCard); // Log resultCard for debugging
 
     if (!resultCard) {

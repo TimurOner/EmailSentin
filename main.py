@@ -40,8 +40,12 @@ def process_input():
     elif method == 'Formality Analysis':
      pred_class,score = form_inform_score(user_input,form_inform_model,word2vec_instance)  # Convert the score to a string if needed
     
-
-    intro_text,body_text,conclusion_text =  get_email_components(user_input)  # Assuming split_text is defined elsewhere
+    # For now the parsing feature is paused.
+    # intro_text,body_text,conclusion_text =  get_email_components(user_input)  # Assuming split_text is defined elsewhere
+    intro_text = ''
+    body_text = ''
+    conclusion_text = ''
+    entire_text = user_input
 
     print(pred_class,score)
     # Create the response dictionary
@@ -49,6 +53,7 @@ def process_input():
         'intro_text': intro_text,
         'body_text': body_text,
         'conclusion_text':conclusion_text,
+        'entire_text':entire_text,
         'pred_class': pred_class,
         'score':score
     }
