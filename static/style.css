@@ -8,13 +8,16 @@ body, html {
     flex-direction: column;
 }
 
-.col-8 {
-    flex-grow: 1; /* Allows the content area to expand as needed */
+
+.navbar-nav {
+    padding-left: 20px; /* Adjust as needed */
+    background-color:#edf0f2;
 }
 
-.container-fluid {
-    flex: 1; /* Allows the container to take up available space */
-}
+.nav-item {
+    margin-left: 15px; /* Adjust as needed */
+} 
+
 
 .row {
     flex: 1; /* Makes the row take up remaining space */
@@ -37,32 +40,6 @@ body, html {
     background-color: #3498db; /* Default color */
 }
 
-.left {
-    background-color:  #3498db; /* Left sidebar color */
-}
-
-.right {
-    background-color:   #3498db; /* Right sidebar color */
-}
-
-.container {
-    flex: 1; /* Take up remaining space */
-    box-sizing: border-box; /* Include padding and border in width */
-}
-
-/* Dropdown container styles */
-.dropdown-container {
-    display: flex;
-    justify-content: space-around; /* Space between the elements */
-    align-items: center; /* Align items vertically */
-    gap: 330px; /* Optional: add more spacing between elements */
-}
-
-/* Individual dropdown styles */
-.dropdown {
-    flex: 1;
-    margin-right: 10px;
-}
 
 .styled-select select {
     width: 100%;
@@ -92,11 +69,7 @@ button[type="button"]:hover {
     background-color: #357a34; /* Darker background on hover */
 }
 
-h2 {
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-    margin-top: 20px;
-}
+
 
 .text_class{
     border: 2px solid #333; /* Adds a solid border around the div */
@@ -112,6 +85,9 @@ h2 {
     color: #333; /* Sets the text color inside the div */
 }
 
+
+/* Individual Element Styling */
+
 #email_output {
     max-width: 100%; /* Ensures it doesn’t overflow the container */
     width: 100%; /* Takes up full width within the container */
@@ -126,14 +102,25 @@ h2 {
     
 }
 
+#submit_button {
+    margin-top: 20px !important; /* Increase the margin as needed */
+}
+
+#input_form {
+    margin-top: 100px; /* Adjust as needed */
+    margin-left: 15px;
+}
 
 
 
 
 
 
-/* Legend Styles */
-.text-red {
+
+
+
+
+/* .text-red {
     color: red;
 }
 .text-green {
@@ -163,17 +150,12 @@ h2 {
 
 .legend-section {
     margin-top: 60px !important; /* Use !important to override any conflicting styles */
-}
 
 
-.navbar-nav {
-    padding-left: 20px; /* Adjust as needed */
-    background-color:#edf0f2;
-}
 
-.nav-item {
-    margin-left: 15px; /* Adjust as needed */
-}
+
+
+
 /* .lexicon-btn.active,
 .method-btn.active {
     border: 2px solid #3498db !important;
@@ -191,11 +173,4 @@ h2 {
 
     
     
-    #submit_button {
-        margin-top: 20px !important; /* Increase the margin as needed */
-    }
-
-    #input_form {
-        margin-top: 100px; /* Adjust as needed */
-        margin-left: 15px;
-    }
+ 
