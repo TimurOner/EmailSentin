@@ -16,7 +16,7 @@ basic_auth = BasicAuth(app)
 
 
 # Loading trained models and instances
-path_form_inform_model = r"C:\Users\timur\Documents\GitHub\EmailSentin\sentence_based\models\model1\model_1.pth"
+path_form_inform_model = r"C:\Users\timur\Documents\GitHub\EmailSentin\sentence_based\models\model1\model_2_atn.pth"
 form_inform_model = mdl1.load_model(path_form_inform_model)
 word2vec_instance = KeyedVectors.load(r"C:\Users\timur\Documents\GitHub\EmailSentin\sentence_based\models\model1\glove-twitter-25.model")
 
@@ -42,6 +42,8 @@ def process_input():
     
     # For now the parsing feature is paused.
     # intro_text,body_text,conclusion_text =  get_email_components(user_input)  # Assuming split_text is defined elsewhere
+
+    
     intro_text = ''
     body_text = ''
     conclusion_text = ''
