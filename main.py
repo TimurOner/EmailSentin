@@ -5,7 +5,7 @@ from flask_basicauth import BasicAuth
 from rule_based.pos_neg.pos_neg_run import pos_neg_score
 from sentence_based.tools.parser_tools import get_email_components
 from sentence_based.form_inform.form_inform import form_inform_score
-from sentence_based.models.model1 import model_1 as mdl1
+from sentence_based.models.model1 import model_prod as mdl1
 from gensim.models import KeyedVectors
 
 

@@ -136,7 +136,7 @@ function updateResultCard(formalityScore) {
     // Change the text and color based on the formality score
     if (formalityScore >= 0.5) {
         console.log("Updating to formal style.");
-        resultAlert.className = 'alert alert-danger'; // Red for formal
+        resultAlert.className = 'alert alert-success'; // Green for success messages
         resultHeading.textContent = 'Formal';
         resultText.textContent = `Your text looks pretty formal with a formality score of ${formalityScore}.`;
     } else {
