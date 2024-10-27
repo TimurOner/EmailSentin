@@ -38,7 +38,7 @@ def process_input():
     if method == 'Positive-Negative':
      score = str(pos_neg_score(user_input, lexicon))  # Convert the score to a string if needed
     elif method == 'Formality Analysis':
-     pred_class,score = form_inform_score(user_input,form_inform_model,word2vec_instance)  # Convert the score to a string if needed
+     pred_class,score,attention_weights = form_inform_score(user_input,form_inform_model,word2vec_instance)  # Convert the score to a string if needed
     
     # For now the parsing feature is paused.
     # intro_text,body_text,conclusion_text =  get_email_components(user_input)  # Assuming split_text is defined elsewhere
@@ -49,7 +49,7 @@ def process_input():
     conclusion_text = ''
     entire_text = user_input
 
-    print(pred_class,score)
+    print(attention_weights)
     # Create the response dictionary
     resp = {
         'intro_text': intro_text,
