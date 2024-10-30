@@ -19,14 +19,24 @@ function submitForm() {
         const introText = data['intro_text'];
         const bodyText = data['body_text'];
         const conclusionText = data['conclusion_text'];
-        const entireText = data['entire_text']
+        const entireText = data['entire_text'];
+        const attnList = data['attn_list'];
+        const processedText = data['processed_tokens'];
 
-        const inputProcessed = processString(introText, bodyText, conclusionText);
 
+
+
+        // const inputProcessed = processString(introText, bodyText, conclusionText);
         // document.getElementById('output').value = score;
-        document.getElementById('email_output').innerHTML = entireText; // Display colored text
+        // document.getElementById('email_output').innerHTML = coloredText  // Display colored text
+
+        colors = generateBlueShades(attnList);
+        console.log(processedText)
+        console.log(colors);
+        displayColoredText(entireText,processedText , colors);
+        console.log(attnList)
         updateResultCard(score);
-         
+
     })
     .catch(error => console.error('Error fetching data:', error));
 }
@@ -35,10 +45,10 @@ function processString(firstStr, secondStr, thirdStr) {
     const redFirstStr = `<span style="color: red;">${firstStr}</span>`;
     const blueSecondStr = `<span style="color: blue;">${secondStr}</span>`;
     const greenThirdStr = `<span style="color: green;">${thirdStr}</span>`;
-    
+
     // Use <br> for line breaks
     const processedStr = redFirstStr + '<br>' + blueSecondStr + '<br>' + greenThirdStr;
-    
+
     return processedStr;
 }
 
@@ -146,4 +156,62 @@ function updateResultCard(formalityScore) {
         resultText.textContent = `Your text has informal tone with a formality score of ${formalityScore}.`;
     }
 }
+
+function displayColoredText(paragraph, wordsList, colors) {
+    // Define regex to match unwanted punctuation and symbols
+    const punctuationRegex = /[^\w\s]/g;
+
+    // Clean wordsList and filter corresponding colors
+    const cleanedWordsAndColors = wordsList.reduce((acc, word, index) => {
+        // Remove punctuation and symbols from the word
+        const cleanedWord = word.replace(punctuationRegex, '');
+
+        // Only keep words and colors if cleaned word is non-empty
+        if (cleanedWord) {
+            acc.words.push(cleanedWord);
+            acc.colors.push(colors[index]);
+        }
+        return acc;
+    }, { words: [], colors: [] });
+
+    // Use the cleaned words and colors
+    cleanedWordsAndColors.words.forEach((word, index) => {
+        const color = cleanedWordsAndColors.colors[index % cleanedWordsAndColors.colors.length];
+
+        // Escape special characters to create a safe regex pattern
+        const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`\\b${escapedWord}\\b`, 'i');
+
+        // Replace only if a match is found
+        paragraph = paragraph.replace(regex, (match) => {
+            return match ? `<span style="background-color: ${color}; padding: 0 2px;">${match}</span>` : '';
+        });
+    });
+
+    // Display the result in the <pre> element with id "email_output"
+    document.getElementById("email_output").innerHTML = paragraph;
+}
+
+
+function generateBlueShades(numbers) {
+    // Find the min and max values to scale the blueness
+    const minVal = 0;
+    const maxVal = 0.3;
+
+    // Function to convert a number to a blueish color
+    const numberToBlueShade = (num) => {
+      // Scale the number between 0 and 255 based on min and max values
+      const blueIntensity = Math.floor(((num - minVal) / (maxVal - minVal)) * 255);
+      const redAndGreen = 255 - blueIntensity;
+
+      // Return the color in hexadecimal format
+      return `rgb(${redAndGreen}, ${redAndGreen}, 255)`;
+    };
+
+    // Map each number in the array to its blueish shade
+    return numbers.map(numberToBlueShade);
+  }
+
+
+
 
