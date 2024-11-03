@@ -196,7 +196,7 @@ function displayColoredText(paragraph, wordsList, colors) {
 function generateBlueShades(numbers) {
     // Find the min and max values to scale the blueness
     const minVal = 0;
-    const maxVal = 0.3;
+    const maxVal = 0.03;
 
     // Function to convert a number to a blueish color
     const numberToBlueShade = (num) => {
