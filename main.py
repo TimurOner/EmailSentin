@@ -36,7 +36,9 @@ def process_input():
 
 
     if method == 'Positive-Negative':
-     score = str(pos_neg_score(user_input, lexicon))  # Convert the score to a string if needed
+     score,attention_weights,processed_tokens = pos_neg_score(user_input, lexicon)
+     pred_class = 'Lalala'
+     
     elif method == 'Formality Analysis':
      pred_class,score,attention_weights,processed_tokens = form_inform_score(user_input,form_inform_model,word2vec_instance)  # Convert the score to a string if needed
     
@@ -49,7 +51,11 @@ def process_input():
     conclusion_text = ''
     entire_text = user_input
 
+
     
+
+    
+    print(type(attention_weights[0]))
     # Create the response dictionary
     resp = {
         #-----------------------
@@ -58,11 +64,11 @@ def process_input():
         'conclusion_text':conclusion_text,
         #-----------------------
 
-        'attn_list':attention_weights.tolist(),
+        'attn_list':list(attention_weights),
         'processed_tokens':processed_tokens,
         'entire_text':entire_text,
         'pred_class': pred_class,
-        'score':score
+        'score':int(score)
     }
 
     # Return a JSON response
