@@ -17,7 +17,7 @@ def get_token_sentiments(tokens_to_process) -> np.array:
    for token in tokens_to_process:
       
         processed_output = sid.polarity_scores(token)
-        valence_list.append(int(processed_output['compound']))
+        valence_list.append(float(processed_output['compound']))
 
 
    
@@ -49,11 +49,10 @@ def pos_neg_score(input_text,lex_name):
 
 
    if lex_name!='VADER':
-  
+     
       lexicon = load_lexicon(lex_name)
       tokenized_text  = preprocess(input_text)
-      valence_array = np.array(list(map(lambda word: lexicon.get(word, 0), tokenized_text)))
-
+      valence_array = np.array([lexicon.get(word, 0) for word in tokenized_text])
       valence_array = normalize_to_range(valence_array, -1, 1)
       score = sum(map(lambda word: lexicon.get(word, 0), tokenized_text))
 
@@ -67,5 +66,6 @@ def pos_neg_score(input_text,lex_name):
       score = processed_output['compound']
 
    valence_array = convert_array_elements(valence_array)
+   
   
    return score,valence_array,tokenized_text

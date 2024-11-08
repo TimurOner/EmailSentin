@@ -115,6 +115,7 @@ button[type="button"]:hover {
 
 .output-image {
     margin-left: 50px; /* Adjust the value as needed */
+    margin-bottom: 50px;
 }
 
 

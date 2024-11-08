@@ -307,16 +307,18 @@ function generateBlueShades(numbers) {
         const redAndGreen = 255 - blueIntensity;
         return `rgb(${redAndGreen}, ${redAndGreen}, 255)`; // Blue shades
       } else {
-        // For values between 0 and -1, generate red shades
-        const redIntensity = scaleToColorIntensity(num, -1, 0);
-        const greenAndBlue = 255 - redIntensity;
-        return `rgb(255, ${greenAndBlue}, ${greenAndBlue})`; // Red shades
+        // For values between 0 and -1, generate red shades with inverted logic
+        const redIntensity = scaleToColorIntensity(num, 0,-1); // Red intensity increases as num gets more negative
+        const greenAndBlue = 255 - redIntensity; // Blue and Green decrease as red increases
+        return `rgb(${255}, ${greenAndBlue}, ${greenAndBlue})`; // Inverted Red shades
       }
     };
   
     // Map each number in the array to its color shade
     return numbers.map(numberToColorShade);
   }
+  
+  
 
 
 
