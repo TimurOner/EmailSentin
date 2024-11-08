@@ -3,7 +3,6 @@ from flask_basicauth import BasicAuth
 
 
 from rule_based.pos_neg.pos_neg_run import pos_neg_score
-from sentence_based.tools.parser_tools import get_email_components
 from sentence_based.form_inform.form_inform import form_inform_score
 from sentence_based.models.model1 import model_prod as mdl1
 from gensim.models import KeyedVectors
@@ -37,10 +36,11 @@ def process_input():
 
     if method == 'Positive-Negative':
      score,attention_weights,processed_tokens = pos_neg_score(user_input, lexicon)
-     pred_class = 'Lalala'
+     pred_class = 'NaN'
      
     elif method == 'Formality Analysis':
      pred_class,score,attention_weights,processed_tokens = form_inform_score(user_input,form_inform_model,word2vec_instance)  # Convert the score to a string if needed
+
     
     # For now the parsing feature is paused.
     # intro_text,body_text,conclusion_text =  get_email_components(user_input)  # Assuming split_text is defined elsewhere
@@ -52,10 +52,11 @@ def process_input():
     entire_text = user_input
 
 
-    
+  
 
     
-    print(type(attention_weights[0]))
+
+
     # Create the response dictionary
     resp = {
         #-----------------------
@@ -68,7 +69,8 @@ def process_input():
         'processed_tokens':processed_tokens,
         'entire_text':entire_text,
         'pred_class': pred_class,
-        'score':int(score)
+        'score':int(score),
+        'method':method 
     }
 
     # Return a JSON response

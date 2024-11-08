@@ -1,5 +1,4 @@
 
-
 from sentence_based.models.model1 import model_prod as mdl1
 
 def form_inform_score(body_text:str,model_instance,word2vec_instance) -> float:

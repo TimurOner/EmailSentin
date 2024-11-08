@@ -1,14 +1,10 @@
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-import nltk
 import numpy as np
 
 from rule_based.pos_neg.preprocessing.preprocess import preprocess 
 from rule_based.pos_neg.lexicons.lex_loader import load_lexicon  
 
-
-
-nltk.download('vader_lexicon')
 
 
 
@@ -19,10 +15,8 @@ def get_token_sentiments(tokens_to_process) -> np.array:
    valence_list = []
 
    for token in tokens_to_process:
-        # Get sentiment score for the individual word
+      
         processed_output = sid.polarity_scores(token)
-        print(processed_output['compound'])
-        # Store each word's compound score (overall sentiment intensity)
         valence_list.append(int(processed_output['compound']))
 
 
@@ -41,10 +35,14 @@ def convert_array_elements(obj):
         return {key: convert_array_elements(value) for key, value in obj.items()}
     return obj
 
+
+def normalize_to_range(array, new_min=-1, new_max=1):
+    arr_min = -5
+    arr_max = 5
+    normalized_array = new_min + (new_max - new_min) * (array - arr_min) / (arr_max - arr_min)
+    return normalized_array
+
                 
-
-
-
 def pos_neg_score(input_text,lex_name):
 
    # For now possible lexicons: AFINN-111 and AFINN-96
@@ -55,20 +53,19 @@ def pos_neg_score(input_text,lex_name):
       lexicon = load_lexicon(lex_name)
       tokenized_text  = preprocess(input_text)
       valence_array = np.array(list(map(lambda word: lexicon.get(word, 0), tokenized_text)))
-      print(valence_array)
 
+      valence_array = normalize_to_range(valence_array, -1, 1)
       score = sum(map(lambda word: lexicon.get(word, 0), tokenized_text))
 
    else: 
 
       sid = SentimentIntensityAnalyzer()
       processed_output = sid.polarity_scores(input_text)
-      score = processed_output['compound']
       tokenized_text  = preprocess(input_text)
+
       valence_array = get_token_sentiments(tokenized_text)
-      print(valence_array)
+      score = processed_output['compound']
 
    valence_array = convert_array_elements(valence_array)
-     
   
    return score,valence_array,tokenized_text

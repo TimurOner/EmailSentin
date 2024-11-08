@@ -14,14 +14,18 @@ function submitForm() {
     })
     .then(response => response.json()) // Expect a JSON response
     .then(data => {
-        const score = data['score'];
+        
         // const pred_class = data['pred_class']
-        const introText = data['intro_text'];
-        const bodyText = data['body_text'];
-        const conclusionText = data['conclusion_text'];
+        // const introText = data['intro_text'];
+        // const bodyText = data['body_text'];
+        // const conclusionText = data['conclusion_text'];
+
+        const score = data['score'];
         const entireText = data['entire_text'];
         const attnList = data['attn_list'];
         const processedText = data['processed_tokens'];
+        const method = data['method']
+        let colors;
 
 
 
@@ -29,13 +33,16 @@ function submitForm() {
         // const inputProcessed = processString(introText, bodyText, conclusionText);
         // document.getElementById('output').value = score;
         // document.getElementById('email_output').innerHTML = coloredText  // Display colored text
-
-        colors = generateBlueShades(attnList);
-        console.log(processedText)
-        console.log(colors);
+        if (method === 'Positive-Negative') {
+            colors = generateRedAndBlueShades(attnList);
+          } else {
+            colors = generateBlueShades(attnList);
+          }
+          
+        
+        
         displayColoredText(entireText,processedText , colors);
-        console.log(attnList)
-        updateResultCard(score);
+        updateResultCard(score,method);
 
     })
     .catch(error => console.error('Error fetching data:', error));
@@ -109,19 +116,70 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-function updateResultCard(formalityScore) {
+// function updateResultCard(formalityScore) {
+//     const resultCard = document.querySelector('#unique-results-card');
+//     console.log("Result Card:", resultCard); // Log resultCard for debugging
+
+//     if (!resultCard) {
+//         console.log("Result card not found.");
+//         return;
+//     }
+
+//     console.log("Result Card HTML:", resultCard.innerHTML); // Log the HTML of the result card for debugging
+
+//     const resultAlert = resultCard.querySelector('.alert'); // Target the alert within the card
+//     console.log("Result Alert:", resultAlert); // Log resultAlert for debugging
+
+//     if (!resultAlert) {
+//         console.log("Alert inside the card not found.");
+//         return;
+//     }
+
+//     console.log("Result Alert HTML:", resultAlert.innerHTML); // Log the HTML of the alert for debugging
+
+//     const resultHeading = resultAlert.querySelector('h4'); // Target the alert heading
+//     if (!resultHeading) {
+//         console.log("Heading inside the alert not found.");
+//         return;
+//     }
+
+//     let resultText = resultAlert.querySelector('p'); // Try to find a paragraph element for result text
+//     if (!resultText) {
+//         console.log("Creating a new paragraph element for the result text.");
+//         resultText = document.createElement('p');
+//         resultAlert.appendChild(resultText);
+//     }
+
+//     // Change the text and color based on the formality score
+//     if (formalityScore >= 0.5) {
+//         console.log("Updating to formal style.");
+//         resultAlert.className = 'alert alert-success'; // Green for success messages
+//         resultHeading.textContent = 'Formal';
+//         resultText.textContent = `Your text looks pretty formal with a formality score of ${formalityScore}.`;
+//     } else {
+//         console.log("Updating to informal style.");
+//         resultAlert.className = 'alert alert-warning'; // Yellow for informal
+//         resultHeading.textContent = 'Informal';
+//         resultText.textContent = `Your text has informal tone with a formality score of ${formalityScore}.`;
+//     }
+// }
+
+
+function updateResultCard(score, method) {
+
+    // Select the appropriate result card based on the method
     const resultCard = document.querySelector('#unique-results-card');
-    console.log("Result Card:", resultCard); // Log resultCard for debugging
 
     if (!resultCard) {
-        console.log("Result card not found.");
+        console.log("Result card not found for method:", method);
         return;
     }
 
     console.log("Result Card HTML:", resultCard.innerHTML); // Log the HTML of the result card for debugging
 
-    const resultAlert = resultCard.querySelector('.alert'); // Target the alert within the card
-    console.log("Result Alert:", resultAlert); // Log resultAlert for debugging
+    // Target the alert within the card
+    resultAlert = resultCard.querySelector('.alert');
+    console.log("Result Alert:", resultAlert);
 
     if (!resultAlert) {
         console.log("Alert inside the card not found.");
@@ -130,32 +188,55 @@ function updateResultCard(formalityScore) {
 
     console.log("Result Alert HTML:", resultAlert.innerHTML); // Log the HTML of the alert for debugging
 
-    const resultHeading = resultAlert.querySelector('h4'); // Target the alert heading
+    // Target the alert heading
+    resultHeading = resultAlert.querySelector('h4');
     if (!resultHeading) {
         console.log("Heading inside the alert not found.");
         return;
     }
 
-    let resultText = resultAlert.querySelector('p'); // Try to find a paragraph element for result text
+    // Try to find a paragraph element for result text, create one if not found
+    resultText = resultAlert.querySelector('p');
     if (!resultText) {
         console.log("Creating a new paragraph element for the result text.");
         resultText = document.createElement('p');
         resultAlert.appendChild(resultText);
     }
 
-    // Change the text and color based on the formality score
-    if (formalityScore >= 0.5) {
-        console.log("Updating to formal style.");
-        resultAlert.className = 'alert alert-success'; // Green for success messages
-        resultHeading.textContent = 'Formal';
-        resultText.textContent = `Your text looks pretty formal with a formality score of ${formalityScore}.`;
+    // Update the result card based on the method
+    if (method === 'Formality Analysis') {
+        // Formality logic
+        if (score >= 0.5) {
+            console.log("Updating to formal style.");
+            resultAlert.className = 'alert alert-success'; // Green for success messages
+            resultHeading.textContent = 'Formal';
+            resultText.textContent = `Your text looks pretty formal with a formality score of ${score}.`;
+        } else {
+            console.log("Updating to informal style.");
+            resultAlert.className = 'alert alert-warning'; // Yellow for informal
+            resultHeading.textContent = 'Informal';
+            resultText.textContent = `Your text has an informal tone with a formality score of ${score}.`;
+        }
+    } else if (method === 'Positive-Negative') {
+        // Pos-Neg logic
+        if (score >= 0) {
+            console.log("Updating to positive style.");
+            resultAlert.className = 'alert alert-success'; // Green for positive
+            resultHeading.textContent = 'Positive Sentiment';
+            resultText.textContent = `Your text conveys a positive sentiment with a score of ${score}.`;
+        } else {
+            console.log("Updating to negative style.");
+            resultAlert.className = 'alert alert-danger'; // Red for negative
+            resultHeading.textContent = 'Negative Sentiment';
+            resultText.textContent = `Your text conveys a negative sentiment with a score of ${score}.`;
+        }
     } else {
-        console.log("Updating to informal style.");
-        resultAlert.className = 'alert alert-warning'; // Yellow for informal
-        resultHeading.textContent = 'Informal';
-        resultText.textContent = `Your text has informal tone with a formality score of ${formalityScore}.`;
+        console.log("Unknown method:", method);
     }
 }
+
+
+
 
 function displayColoredText(paragraph, wordsList, colors) {
     // Define regex to match unwanted punctuation and symbols
@@ -210,6 +291,31 @@ function generateBlueShades(numbers) {
 
     // Map each number in the array to its blueish shade
     return numbers.map(numberToBlueShade);
+  }
+
+  function generateRedAndBlueShades(numbers) {
+    // Helper function for scaling numbers to RGB values
+    const scaleToColorIntensity = (num, minVal, maxVal) => {
+      return Math.floor(((num - minVal) / (maxVal - minVal)) * 255);
+    };
+  
+    // Function to convert a number to a color shade
+    const numberToColorShade = (num) => {
+      if (num >= 0) {
+        // For values between 0 and 1, generate blue shades
+        const blueIntensity = scaleToColorIntensity(num, 0, 1);
+        const redAndGreen = 255 - blueIntensity;
+        return `rgb(${redAndGreen}, ${redAndGreen}, 255)`; // Blue shades
+      } else {
+        // For values between 0 and -1, generate red shades
+        const redIntensity = scaleToColorIntensity(num, -1, 0);
+        const greenAndBlue = 255 - redIntensity;
+        return `rgb(255, ${greenAndBlue}, ${greenAndBlue})`; // Red shades
+      }
+    };
+  
+    // Map each number in the array to its color shade
+    return numbers.map(numberToColorShade);
   }
 
 

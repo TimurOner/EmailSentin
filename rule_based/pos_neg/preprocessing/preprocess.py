@@ -1,14 +1,9 @@
 import nltk
-from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords as stpwrds
 import string
 import re
 
 
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
+
 
 def preprocess(input_text):
 
@@ -19,7 +14,6 @@ def preprocess(input_text):
     stopwords = nltk.corpus.stopwords.words("english")
 
     # Remove White Spaces
-
     input_text = input_text.strip()
     input_text = " ".join(input_text.split())
 
@@ -34,7 +28,6 @@ def preprocess(input_text):
 
     preprocessed_text = filtered_tokens 
     
-
     return preprocessed_text
 
 
