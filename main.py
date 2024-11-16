@@ -36,11 +36,11 @@ def process_input():
 
     if method == 'Positive-Negative':
      score,attention_weights,processed_tokens = pos_neg_score(user_input, lexicon)
-     
-     pred_class = 'NaN'
-     
+     # Positivity score between -1 and 1 -1 being most negative and 1 being most positive.
+
     elif method == 'Formality Analysis':
-     pred_class,score,attention_weights,processed_tokens = form_inform_score(user_input,form_inform_model,word2vec_instance)  # Convert the score to a string if needed
+     score,attention_weights,processed_tokens = form_inform_score(user_input,form_inform_model,word2vec_instance)  # Convert the score to a string if needed
+     # Formality values between 0 and 1. 1 meaning most informal and 0 being most formal.
 
 
     
@@ -71,7 +71,6 @@ def process_input():
         'attn_list':list(attention_weights),
         'processed_tokens':processed_tokens,
         'entire_text':entire_text,
-        'pred_class': pred_class,
         'score':round(float(score), 1),
         'method':method 
     }

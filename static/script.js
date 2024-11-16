@@ -1,3 +1,11 @@
+// Global Variables Definition
+
+var minPosNeg = -20;
+var maxPosNeg =  20;
+var maxFormality = 1;
+var minFormality = 0;
+
+
 function submitForm() {
     // Gather the form data
     const formData = new FormData(document.getElementById('input_form'));
@@ -42,6 +50,7 @@ function submitForm() {
         
         
         displayColoredText(entireText,processedText , colors);
+        updateOutputImage(method);
         updateResultCard(score,method);
 
     })
@@ -206,12 +215,18 @@ function updateResultCard(score, method) {
     // Update the result card based on the method
     if (method === 'Formality Analysis') {
         // Formality logic
-        if (score >= 0.5) {
+        if (score >= 0.55) {
             console.log("Updating to formal style.");
             resultAlert.className = 'alert alert-success'; // Green for success messages
             resultHeading.textContent = 'Formal';
             resultText.textContent = `Your text looks pretty formal with a formality score of ${score}.`;
-        } else {
+        } else if (score > 0.45) 
+            
+            {console.log("Updating to neutral style.");
+            resultAlert.className = 'alert alert-info'; // Green for success messages
+            resultHeading.textContent = 'Neutral';
+            resultText.textContent = `Your text looks neither formal nor informal with a formality score of ${score}.`;} 
+        else {
             console.log("Updating to informal style.");
             resultAlert.className = 'alert alert-warning'; // Yellow for informal
             resultHeading.textContent = 'Informal';
@@ -219,20 +234,32 @@ function updateResultCard(score, method) {
         }
     } else if (method === 'Positive-Negative') {
         // Pos-Neg logic
-        if (score >= 0) {
+        if (score >= 0.1) {
             console.log("Updating to positive style.");
-            resultAlert.className = 'alert alert-success'; // Green for positive
+            updateCardHue(score)
             resultHeading.textContent = 'Positive Sentiment';
             resultText.textContent = `Your text conveys a positive sentiment with a score of ${score}.`;
-        } else {
+        } else if (-0.1 < score) 
+            {
+            console.log("Updating to neutral style.");
+            updateCardHue(score)
+            resultHeading.textContent = 'Neutral Sentiment';
+            resultText.textContent = `Your text conveys a neutral sentiment with a score of ${score}.`;
+        }
+          else
+        {
             console.log("Updating to negative style.");
-            resultAlert.className = 'alert alert-danger'; // Red for negative
+            updateCardHue(score)
             resultHeading.textContent = 'Negative Sentiment';
             resultText.textContent = `Your text conveys a negative sentiment with a score of ${score}.`;
         }
+
+        updateThumbPosition(score, minPosNeg ,maxPosNeg)
     } else {
         console.log("Unknown method:", method);
     }
+
+    
 }
 
 
@@ -317,6 +344,91 @@ function generateBlueShades(numbers) {
     // Map each number in the array to its color shade
     return numbers.map(numberToColorShade);
   }
+
+  function updateOutputImage(method) {
+    const outputImage = document.getElementById("image_out");
+
+    console.log(outputImage)
+
+
+    // Change the image source based on the storedMethod value
+    if (method === "Positive-Negative") {
+        outputImage.src = "static/images/bar1.png";
+        outputImage.title = "Positivity Level of Words"
+    } else if (method === "Formality Analysis") {
+        outputImage.src = "static/images/bar2.png";
+        outputImage.title = "Importance Level of Words"
+    } 
+}
+
+
+
+
+function numberToHue(value) {
+    const MIN_VALUE = -20;  // Minimum value (corresponds to orange)
+    const MAX_VALUE = 20;   // Maximum value (corresponds to blue)
+
+    // Normalize the value to a range between 0 and 1
+    const normalizedValue = (value - MIN_VALUE) / (MAX_VALUE - MIN_VALUE); 
+
+    // Clamp the normalized value to ensure it's between 0 and 1
+    const clampedValue = Math.max(0, Math.min(1, normalizedValue));
+
+    // Create discrete color stops. We'll divide the range from orange to blue into 7 parts
+    // Define the 7 discrete hues based on the orange to blue transition
+    const hues = [
+        30,    // 0: Orange
+        45,    // 1: Light Orange
+        60,    // 2: Yellow
+        90,    // 3: Light Yellow
+        150,   // 4: Light Yellowish-Orange
+        180,   // 5: Light Blue
+        240    // 6: Blue
+    ];
+
+    // Calculate the step index based on the normalized value
+    const step = Math.floor(clampedValue * (hues.length - 1)); // This gives us an integer between 0 and 6 (7 steps in total)
+
+    // Get the hue corresponding to the selected step
+    const hue = hues[step];
+
+    return hue;
+}
+
+
+
+
+function updateCardHue(value) {
+
+    hue = numberToHue(value)
+    const card = document.getElementById('unique-results-card');
+    const alert = card.querySelector('.alert.alert-info');
+
+
+    // Set the background color using the calculated hue
+    alert.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+}
+
+function updateThumbPosition(value, min, max) {
+    const rangeInput = document.getElementById('sentimentRange');
+    const percentage = ((value - min) / (max - min)) * 100;
+    // Set the value of the range input
+    rangeInput.value = percentage;
+
+    // Calculate the percentage position of the thumb (optional, for styling)
+    
+
+    // Update the thumb's background color based on the value
+    if (value < 0) {
+        rangeInput.style.setProperty('--thumb-color', 'red');
+    } else if (value > 0) {
+        rangeInput.style.setProperty('--thumb-color', 'green');
+    } else {
+        rangeInput.style.setProperty('--thumb-color', 'yellow');
+    }
+}
+
+
   
   
 

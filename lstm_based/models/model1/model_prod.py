@@ -90,10 +90,7 @@ def lstm_model_get_prediction(mail_body: str, model_instance: nn.Module, word2ve
         attn_weights = attn_weights[:,:seq_len]
         
         
-        # Interpret prediction
-        if output == 1:
-            return "Formal",round(logit.item(), 1),convert_array_elements(attn_weights.squeeze().numpy()),processed_tokens_str
-        else:
-            return "Informal",round(logit.item(), 1),convert_array_elements(attn_weights.squeeze().numpy()),processed_tokens_str
+        return round(logit.item(), 1),convert_array_elements(attn_weights.squeeze().numpy()),processed_tokens_str
+        
 
 

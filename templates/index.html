@@ -98,12 +98,22 @@
                                  <div class="card-body">
                                      <h5 class="card-title">Results</h5>
                                      <div class="alert alert-info" role="alert">
-                                        <h4 class="alert-heading"></h4>
+                                        <h4 class="alert-heading" ></h4>
                                             <p>The results will be displayed here!</p>
                                         </div>
                                     </div>
+                                    <div class="Readout" style="width: 75%; margin: 0 auto;">
+                                <label for="disabledRange" class="form-label" style="margin: 0 auto;">Positivity Sentiment</label>
+                                <input type="range" class="form-range" id="sentimentRange" min="0" max="100" value="50">
+                                <div class="ticks" id="ticks"></div> <!-- This will hold the ticks -->
+                                
+
+
+                            </div>
+
                                </div>
-                                           
+                               
+                                            
                     
                 
                                         
@@ -124,7 +134,7 @@
                 
                     <!-- Card containing the image occupies the remaining 20% -->
                     <div class="output-image" style="width: 20%;">  <!-- Make the card width 2 times narrower -->
-                        <img src="static\images\bar_new.png" alt="Analysis Result Image" style="width: 39%; height: auto;">
+                        <img src="static\images\bar_new.png" id ="image_out" alt="Analysis Result Image" style="width: 39%; height: auto;" title="Positivity Level">
                     </div>
                 </div>
                 
