@@ -103,9 +103,8 @@
                                         </div>
                                     </div>
                                     <div class="Readout" style="width: 75%; margin: 0 auto;">
-                                <label for="disabledRange" class="form-label" style="margin: 0 auto;">Positivity Sentiment</label>
-                                <input type="range" class="form-range" id="sentimentRange" min="0" max="100" value="50">
-                                <div class="ticks" id="ticks"></div> <!-- This will hold the ticks -->
+                                
+                                
                                 
 
 
@@ -128,15 +127,20 @@
                 
 
                  
-                <div class="col-12 mb-3 d-flex align-items-stretch">
+                <div class="col-12 mb-3 d-flex align-items-center"> <!-- Use align-items-center -->
                     <!-- Email output occupies 80% -->
                     <pre class="form-control text_class flex-grow-1" id="email_output" placeholder="Your email output will appear here..."></pre>
-                
+                                                
                     <!-- Card containing the image occupies the remaining 20% -->
-                    <div class="output-image" style="width: 20%;">  <!-- Make the card width 2 times narrower -->
-                        <img src="static\images\bar_new.png" id ="image_out" alt="Analysis Result Image" style="width: 39%; height: auto;" title="Positivity Level">
+                    
+                    <div class="slider-container"> <!-- Set this div to 20% -->
+                        <img src="static/images/thumb_up.png" alt="Above Slider" class="slider-image above" style="transform: scale(0.5);">
+                        <input type="range" class="form-range" id="sentimentRange" min="0" max="100" value="50">
+                        <img src="static/images/thumb_down.png" alt="Below Slider" class="slider-image below" style="transform: scale(0.5);">
+                        
                     </div>
                 </div>
+                
                 
                 
                 
@@ -153,7 +157,7 @@
     
     <!-- Footer placed outside the row -->
     <footer class="footer">
-        © 2024 Email Center Analyzer. All rights reserved.
+        © 2024 Email Sentiment Analyzer. All rights reserved.
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-Z0U4PxsG0o3YO4HzxKogTqpgZhfwJ4i7vKhxErx0K8GoJQH8ZT0Op6h9Xy5RyEb3" crossorigin="anonymous"></script>

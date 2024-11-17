@@ -132,74 +132,87 @@ button[type="button"]:hover {
 
 /* Basic styles for the range input */
 /* Container for vertical alignment */
-.slider-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px; /* Adjust the height of the container */
+/* Container to center the slider vertically */
+
+
+/* Style the vertical range slider */
+/* Center the slider vertically */
+/* Center the slider vertically */
+/* Container for vertical alignment */
+
+
+.slider-image {
+    width: 50px;            /* Set a fixed width for images */
+    height: auto;           /* Maintain aspect ratio */
 }
 
-/* Rotate the slider to make it vertical */
+.slider-container {
+
+    flex-direction: column; /* Stack elements vertically */
+    display: flex;
+    justify-content: center;   /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+    height: 500px;             /* Adjust container height to allow the slider to grow */
+    width: 100px;              /* Keep it narrow for proper rotation */
+    margin: auto;              /* Ensure the container itself is centered */
+    overflow: hidden;          /* Hide overflow if needed */
+}
+
+/* Vertical range slider */
 input[type="range"].form-range {
-    width: 8px; /* Width of the vertical track */
-    height: 100%; /* Full height to fill the container */
-    background: linear-gradient(to top, /* Change gradient direction */
-        red 0%, 
-        orange 33%, 
-        lightblue 66%, 
-        blue 100%);
-    border-radius: 5px;
-    outline: none;
     -webkit-appearance: none;
     appearance: none;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    transition: background 0.2s ease-in-out;
-    transform: rotate(90deg); /* Rotate 90 degrees */
-    transform-origin: center; /* Center the rotation */
+    width: 200px;               /* Set width to small for vertical slider */
+    height: 14px;              /* This height will now act as the 'width' due to rotation */
+    background: linear-gradient(
+  to right,
+  #cc0000 0%,      /* Strong Red */
+  #f44336 25%,     /* Vibrant Red */
+  #fff2cc 50%,     /* Pale Yellow */
+  #6fa8dc 75%,     /* Soft Blue */
+  #215ce3 100%     /* Deep Teal */
+);
+    border-radius: 5px;
+    outline: none;
+    transform: rotate(-90deg); /* Rotate to make it vertical */
+    transform-origin: center;  /* Ensure rotation happens around the center */
+    margin: 0;                 /* Prevent additional margins that could misalign */
+    cursor: pointer;
 }
 
-/* Make the track look like discrete steps */
+/* Track style */
 input[type="range"].form-range::-webkit-slider-runnable-track {
     background: transparent;
-    border-radius: 5px;
-    width: 100%;
-    height: 8px;
+    height: 8px; /* This is fine, no change needed */
 }
 
 input[type="range"].form-range::-moz-range-track {
     background: transparent;
-    border-radius: 5px;
-    width: 100%;
     height: 8px;
 }
 
-/* Style for the thumb (slider handle) */
-input[type="range"].form-range::-webkit-slider-thumb {
-    -webkit-appearance: none;
+/* Slider thumb style */
+input[type="range"]::-webkit-slider-thumb {
     appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #007bff;
-    border-radius: 50%;
-    cursor: pointer;
+    background: black;
+    border-radius: 4px;
+    width: 10px;
+    height: 18px;
 }
 
-input[type="range"].form-range::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: #007bff;
-    border-radius: 50%;
-    cursor: pointer;
+.slider-container .above {
+    /* Styles for the above class within slider-container */
+    margin-bottom: 90px;
+    width: 50px;
+    height: auto;
 }
 
-/* Ensure discrete steps */
-input[type="range"].form-range {
-    step: 1; /* Step size for discrete values */
-    min: 0;
-    max: 4; /* Max value for 5 steps (0, 1, 2, 3, 4) */
+.slider-container .below {
+    /* Styles for the above class within slider-container */
+    margin-top: 90px;
+    width: 50px;
+    height: auto;
 }
-
 
 
 

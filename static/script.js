@@ -50,7 +50,7 @@ function submitForm() {
         
         
         displayColoredText(entireText,processedText , colors);
-        updateOutputImage(method);
+        // updateOutputImage(method);
         updateResultCard(score,method);
 
     })
@@ -288,17 +288,18 @@ function displayColoredText(paragraph, wordsList, colors) {
 
         // Escape special characters to create a safe regex pattern
         const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`\\b${escapedWord}\\b`, 'i');
+        const regex = new RegExp(`\\b${escapedWord}\\b`, 'gi'); // Use 'g' for global match
 
-        // Replace only if a match is found
+        // Replace all occurrences with highlights
         paragraph = paragraph.replace(regex, (match) => {
-            return match ? `<span style="background-color: ${color}; padding: 0 2px;">${match}</span>` : '';
+            return `<span style="background-color: ${color}; padding: 0 2px;">${match}</span>`;
         });
     });
 
     // Display the result in the <pre> element with id "email_output"
     document.getElementById("email_output").innerHTML = paragraph;
 }
+
 
 
 function generateBlueShades(numbers) {
@@ -365,48 +366,35 @@ function generateBlueShades(numbers) {
 
 
 function numberToHue(value) {
-    const MIN_VALUE = -20;  // Minimum value (corresponds to orange)
-    const MAX_VALUE = 20;   // Maximum value (corresponds to blue)
-
-    // Normalize the value to a range between 0 and 1
-    const normalizedValue = (value - MIN_VALUE) / (MAX_VALUE - MIN_VALUE); 
-
-    // Clamp the normalized value to ensure it's between 0 and 1
-    const clampedValue = Math.max(0, Math.min(1, normalizedValue));
-
-    // Create discrete color stops. We'll divide the range from orange to blue into 7 parts
-    // Define the 7 discrete hues based on the orange to blue transition
-    const hues = [
-        30,    // 0: Orange
-        45,    // 1: Light Orange
-        60,    // 2: Yellow
-        90,    // 3: Light Yellow
-        150,   // 4: Light Yellowish-Orange
-        180,   // 5: Light Blue
-        240    // 6: Blue
-    ];
-
-    // Calculate the step index based on the normalized value
-    const step = Math.floor(clampedValue * (hues.length - 1)); // This gives us an integer between 0 and 6 (7 steps in total)
-
-    // Get the hue corresponding to the selected step
-    const hue = hues[step];
-
-    return hue;
+    // Define the color mappings directly
+    if (value <= -15) {
+        return "#cc0000";  // Red (#cc0000)
+    } else if (value <= -10) {
+        return "#f44336";  // Vibrant red (#f44336)
+    } else if (value <= 0) {
+        return "#fff2cc";  // Pale yellow (#fff2cc)
+    } else if (value <= 10) {
+        return "#6fa8dc";  // Soft blue (#6fa8dc)
+    } else {
+        return "#215ce3";  // Deep teal (#0b5349)
+    }
 }
+
+
+
 
 
 
 
 function updateCardHue(value) {
 
-    hue = numberToHue(value)
+    color = numberToHue(value)
     const card = document.getElementById('unique-results-card');
     const alert = card.querySelector('.alert.alert-info');
 
 
     // Set the background color using the calculated hue
-    alert.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+    alert.style.backgroundColor = color;
 }
 
 function updateThumbPosition(value, min, max) {
