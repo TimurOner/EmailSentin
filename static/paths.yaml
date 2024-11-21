@@ -1,0 +1,5 @@
+image_paths:
+  formal_img: "static/images/formal.png"
+  informal_img: "static/images/informal.png"
+  thumb_up_img: "static/images/thumb_up.png"
+  thumb_down_img: "static/images/thumb_down.png"

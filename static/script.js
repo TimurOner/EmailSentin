@@ -1,9 +1,15 @@
 // Global Variables Definition
 
-var minPosNeg = -20;
-var maxPosNeg =  20;
-var maxFormality = 1;
-var minFormality = 0;
+const CONSTANTS = {
+    MIN_POS_NEG: -20,
+    MAX_POS_NEG: 20,
+    MAX_FORMALITY: 1,
+    MIN_FORMALITY: 0,
+    FORMALITY_THRESHOLD: 0.55,
+    NEUTRAL_THRESHOLD: 0.45,
+    POS_NEG_THR:0.1
+};
+
 
 
 function submitForm() {
@@ -215,15 +221,15 @@ function updateResultCard(score, method) {
     // Update the result card based on the method
     if (method === 'Formality Analysis') {
 
-        thumbUpImage.src =  "static\images\formal.png"
-        thumbDownImage.src = "static\images\informal.png"
+        thumbUpImage.src =  "static/images/formal.png"
+        thumbDownImage.src = "static/images/informal.png"
         // Formality logic
-        if (score >= 0.55) {
+        if (score >= CONSTANTS.FORMALITY_THRESHOLD) {
             console.log("Updating to formal style.");
             updateCardHue((score-0.5)*2)
             resultHeading.textContent = 'Formal';
             resultText.textContent = `Your text looks pretty formal with a formality score of ${score}.`;
-        } else if (score > 0.45) 
+        } else if (score > CONSTANTS.NEUTRAL_THRESHOLD) 
             
             {console.log("Updating to neutral style.");
             updateCardHue((score-0.5)*2)
@@ -236,18 +242,18 @@ function updateResultCard(score, method) {
             resultText.textContent = `Your text has an informal tone with a formality score of ${score}.`;
             
         }
-        updateThumbPosition(score, minPosNeg ,maxPosNeg)
+        updateThumbPosition(score, CONSTANTS.MIN_POS_NEG ,CONSTANTS.MAX_POS_NEG)
     } else if (method === 'Positive-Negative') {
 
-        thumbUpImage.src = "static\images\thumb_up.png"
-        thumbDownImage.src = "static\images\thumb_down.png"
+        thumbUpImage.src = "static/images/thumb_up.png"
+        thumbDownImage.src = "static/images/thumb_down.png"
         // Pos-Neg logic
-        if (score >= 0.1) {
+        if (score >= CONSTANTS.POS_NEG_THR) {
             console.log("Updating to positive style.");
             updateCardHue(score)
             resultHeading.textContent = 'Positive Sentiment';
             resultText.textContent = `Your text conveys a positive sentiment with a score of ${score}.`;
-        } else if (-0.1 < score) 
+        } else if (CONSTANTS.POS_NEG_THR < score) 
             {
             console.log("Updating to neutral style.");
             updateCardHue(score)
@@ -262,7 +268,7 @@ function updateResultCard(score, method) {
             resultText.textContent = `Your text conveys a negative sentiment with a score of ${score}.`;
         }
 
-        updateThumbPosition(score, minPosNeg ,maxPosNeg)
+        updateThumbPosition(score, CONSTANTS.MIN_POS_NEG ,CONSTANTS.MAX_POS_NEG)
     } else {
         console.log("Unknown method:", method);
     }
@@ -310,24 +316,26 @@ function displayColoredText(paragraph, wordsList, colors) {
 
 
 
-function generateBlueShades(numbers) {
-    // Find the min and max values to scale the blueness
-    const minVal = 0;
-    const maxVal = 0.03;
+// function generateBlueShades(numbers) {
+//     // Find the min and max values to scale the blueness
+//     const minVal = 0;
+//     const maxVal = 0.03;
 
-    // Function to convert a number to a blueish color
-    const numberToBlueShade = (num) => {
-      // Scale the number between 0 and 255 based on min and max values
-      const blueIntensity = Math.floor(((num - minVal) / (maxVal - minVal)) * 255);
-      const redAndGreen = 255 - blueIntensity;
+//     // Function to convert a number to a blueish color
+//     const numberToBlueShade = (num) => {
+//       // Scale the number between 0 and 255 based on min and max values
+//       const blueIntensity = Math.floor(((num - minVal) / (maxVal - minVal)) * 255);
+//       const redAndGreen = 255 - blueIntensity;
 
-      // Return the color in hexadecimal format
-      return `rgb(${redAndGreen}, ${redAndGreen}, 255)`;
-    };
+//       // Return the color in hexadecimal format
+//       return `rgb(${redAndGreen}, ${redAndGreen}, 255)`;
+//     };
 
-    // Map each number in the array to its blueish shade
-    return numbers.map(numberToBlueShade);
-  }
+//     // Map each number in the array to its blueish shade
+//     return numbers.map(numberToBlueShade);
+//   }
+
+
 
   function generateRedAndBlueShades(numbers) {
     // Helper function for scaling numbers to RGB values
@@ -354,43 +362,21 @@ function generateBlueShades(numbers) {
     return numbers.map(numberToColorShade);
   }
 
-  function updateOutputImage(method) {
-    const outputImage = document.getElementById("image_out");
-
-    console.log(outputImage)
-
-
-    // Change the image source based on the storedMethod value
-    if (method === "Positive-Negative") {
-        outputImage.src = "static/images/bar1.png";
-        outputImage.title = "Positivity Level of Words"
-    } else if (method === "Formality Analysis") {
-        outputImage.src = "static/images/bar2.png";
-        outputImage.title = "Importance Level of Words"
-    } 
-}
-
-
-
 
 function numberToHue(value) {
     // Define the color mappings directly
     if (value <= -15) {
-        return "#cc0000";  // Red (#cc0000)
+        return "#cc0000";  
     } else if (value <= -10) {
-        return "#f44336";  // Vibrant red (#f44336)
+        return "#f44336";  
     } else if (value <= 0) {
-        return "#fff2cc";  // Pale yellow (#fff2cc)
+        return "#fff2cc";  
     } else if (value <= 10) {
-        return "#6fa8dc";  // Soft blue (#6fa8dc)
+        return "#6fa8dc";  
     } else {
-        return "#215ce3";  // Deep teal (#0b5349)
+        return "#215ce3"; 
     }
 }
-
-
-
-
 
 
 

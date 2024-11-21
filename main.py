@@ -38,6 +38,7 @@ def process_input():
 
     if method == 'Positive-Negative':
      score,attention_weights,processed_tokens = pos_neg_score(user_input, lexicon)
+     polarized_attention = attention_weights
      # Positivity score between -1 and 1 -1 being most negative and 1 being most positive.
 
     elif method == 'Formality Analysis':
