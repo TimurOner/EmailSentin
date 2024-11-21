@@ -41,11 +41,7 @@ function submitForm() {
         // const inputProcessed = processString(introText, bodyText, conclusionText);
         // document.getElementById('output').value = score;
         // document.getElementById('email_output').innerHTML = coloredText  // Display colored text
-        if (method === 'Positive-Negative') {
-            colors = generateRedAndBlueShades(attnList);
-          } else {
-            colors = generateBlueShades(attnList);
-          }
+        colors = generateRedAndBlueShades(attnList)
           
         
         
@@ -176,6 +172,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function updateResultCard(score, method) {
 
+
+    const thumbUpImage = document.getElementById('upper_image_slider');
+    const thumbDownImage = document.getElementById('lower_image_slider');
+
     // Select the appropriate result card based on the method
     const resultCard = document.querySelector('#unique-results-card');
 
@@ -214,25 +214,33 @@ function updateResultCard(score, method) {
 
     // Update the result card based on the method
     if (method === 'Formality Analysis') {
+
+        thumbUpImage.src =  "static\images\formal.png"
+        thumbDownImage.src = "static\images\informal.png"
         // Formality logic
         if (score >= 0.55) {
             console.log("Updating to formal style.");
-            resultAlert.className = 'alert alert-success'; // Green for success messages
+            updateCardHue((score-0.5)*2)
             resultHeading.textContent = 'Formal';
             resultText.textContent = `Your text looks pretty formal with a formality score of ${score}.`;
         } else if (score > 0.45) 
             
             {console.log("Updating to neutral style.");
-            resultAlert.className = 'alert alert-info'; // Green for success messages
+            updateCardHue((score-0.5)*2)
             resultHeading.textContent = 'Neutral';
             resultText.textContent = `Your text looks neither formal nor informal with a formality score of ${score}.`;} 
         else {
             console.log("Updating to informal style.");
-            resultAlert.className = 'alert alert-warning'; // Yellow for informal
+            updateCardHue((score-0.5)*2)
             resultHeading.textContent = 'Informal';
             resultText.textContent = `Your text has an informal tone with a formality score of ${score}.`;
+            
         }
+        updateThumbPosition(score, minPosNeg ,maxPosNeg)
     } else if (method === 'Positive-Negative') {
+
+        thumbUpImage.src = "static\images\thumb_up.png"
+        thumbDownImage.src = "static\images\thumb_down.png"
         // Pos-Neg logic
         if (score >= 0.1) {
             console.log("Updating to positive style.");

@@ -7,6 +7,8 @@ from lstm_based.form_inform.form_inform import form_inform_score
 from lstm_based.models.model1 import model_prod as mdl1
 from gensim.models import KeyedVectors
 
+import numpy as np
+
 
 app = Flask(__name__)
 app.config['BASIC_AUTH_USERNAME'] = 'tim'
@@ -39,8 +41,15 @@ def process_input():
      # Positivity score between -1 and 1 -1 being most negative and 1 being most positive.
 
     elif method == 'Formality Analysis':
-     score,attention_weights,processed_tokens = form_inform_score(user_input,form_inform_model,word2vec_instance)  # Convert the score to a string if needed
-     # Formality values between 0 and 1. 1 meaning most informal and 0 being most formal.
+     score,attention_weights,processed_tokens = form_inform_score(user_input,form_inform_model,word2vec_instance) 
+     polarized_attention =  attention_weights*np.sign(score)*3
+     
+
+
+
+
+
+     
 
 
     
@@ -68,7 +77,7 @@ def process_input():
         'conclusion_text':conclusion_text,
         #-----------------------
 
-        'attn_list':list(attention_weights),
+        'attn_list':list(polarized_attention),
         'processed_tokens':processed_tokens,
         'entire_text':entire_text,
         'score':round(float(score), 1),
