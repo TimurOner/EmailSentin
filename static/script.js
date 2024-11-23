@@ -1,15 +1,16 @@
 // Global Variables Definition
 
 const CONSTANTS = {
-    MIN_POS_NEG: -20,
-    MAX_POS_NEG: 20,
-    MAX_FORMALITY: 1,
-    MIN_FORMALITY: 0,
+    MIN_POS_NEG_AFINN: -20,
+    MAX_POS_NEG_AFINN: 20,
+    MAX_POS_NEG_VADER:1,
+    MIN_POS_NEG_VADER:-1,
+    MIN_FORMALITY: -5,
+    MAX_FORMALITY: 5,
     FORMALITY_THRESHOLD: 0.55,
     NEUTRAL_THRESHOLD: 0.45,
-    POS_NEG_THR:0.1
+    POS_NEG_THR: 0.1
 };
-
 
 
 function submitForm() {
@@ -17,10 +18,9 @@ function submitForm() {
     const formData = new FormData(document.getElementById('input_form'));
 
     // Store selected lexicon and method before submission
-    const selectedLexicon = document.getElementById('lex_name').value;
-    const selectedMethod = document.getElementById('method_name').value;
-    localStorage.setItem('selectedLexicon', selectedLexicon);
-    localStorage.setItem('selectedMethod', selectedMethod);
+
+    localStorage.setItem('selectedLexiconVal', selectedLex.value);
+    localStorage.setItem('selectedMethodVal', selectedMethod.value);
 
     fetch('/process_input', {
         method: 'POST',
@@ -36,45 +36,32 @@ function submitForm() {
 
         const score = data['score'];
         const entireText = data['entire_text'];
-        const attnList = data['attn_list'];
+        const scoresByWord = data['scores_by_word'];
         const processedText = data['processed_tokens'];
         const method = data['method']
+        const lexicon =  data['lexicon']
         let colors;
-
-
 
 
         // const inputProcessed = processString(introText, bodyText, conclusionText);
         // document.getElementById('output').value = score;
         // document.getElementById('email_output').innerHTML = coloredText  // Display colored text
-        colors = generateRedAndBlueShades(attnList)
+        colors = generateRedAndBlueShades(scoresByWord)
           
         
         
         displayColoredText(entireText,processedText , colors);
         // updateOutputImage(method);
-        updateResultCard(score,method);
+        updateResultCard(score,method,lexicon);
 
     })
     .catch(error => console.error('Error fetching data:', error));
 }
 
-function processString(firstStr, secondStr, thirdStr) {
-    const redFirstStr = `<span style="color: red;">${firstStr}</span>`;
-    const blueSecondStr = `<span style="color: blue;">${secondStr}</span>`;
-    const greenThirdStr = `<span style="color: green;">${thirdStr}</span>`;
-
-    // Use <br> for line breaks
-    const processedStr = redFirstStr + '<br>' + blueSecondStr + '<br>' + greenThirdStr;
-
-    return processedStr;
-}
 
 function selectLexicon(value) {
     // Update the hidden input with the selected lexicon value
     document.getElementById('lex_name').value = value;
-
-    // Get all buttons in the lexicon group
     const lexiconButtons = document.querySelectorAll('.lexicon-btn');
 
     // Remove active class from all lexicon buttons
@@ -83,7 +70,7 @@ function selectLexicon(value) {
     });
 
     // Add active class to the clicked lexicon button
-    const clickedLexiconButton = Array.from(lexiconButtons).find(button => button.textContent === value);
+    const clickedLexiconButton = Array.from(lexiconButtons).find(button => button.textContent.trim() === value);
     if (clickedLexiconButton) {
         clickedLexiconButton.classList.add('active');
     }
@@ -92,8 +79,6 @@ function selectLexicon(value) {
 function selectMethod(value) {
     // Update the hidden input with the selected method value
     document.getElementById('method_name').value = value;
-
-    // Get all buttons in the method group
     const methodButtons = document.querySelectorAll('.method-btn');
 
     // Remove active class from all method buttons
@@ -102,7 +87,7 @@ function selectMethod(value) {
     });
 
     // Add active class to the clicked method button
-    const clickedMethodButton = Array.from(methodButtons).find(button => button.textContent === value);
+    const clickedMethodButton = Array.from(methodButtons).find(button => button.textContent.trim() === value);
     if (clickedMethodButton) {
         clickedMethodButton.classList.add('active');
     }
@@ -110,80 +95,31 @@ function selectMethod(value) {
 
 document.addEventListener('DOMContentLoaded', function() {
     // Retrieve stored values from localStorage
-    const storedLexicon = localStorage.getItem('selectedLexicon');
-    const storedMethod = localStorage.getItem('selectedMethod');
+    const initialLexVal = 'AFINN-96';
+    const initialMethodVal = 'Positive-Negative';
 
-    // Set the values in the relevant inputs
-    if (storedLexicon) {
-        document.getElementById('lex_name').value = storedLexicon;
-        selectLexicon(storedLexicon); // Highlight the active button
-    }
+    selectedLex = document.getElementById('lex_name');
+    selectedMethod = document.getElementById('method_name');
+    thumbUpImage = document.getElementById('upper_image_slider');
+    thumbDownImage = document.getElementById('lower_image_slider');
+    resultCard = document.querySelector('#unique-results-card');
+    alertInfo = document.querySelector('.alert.alert-info');
+    rangeInput = document.getElementById('sentimentRange');
+    emailOutput = document.getElementById("email_output");
 
-    if (storedMethod) {
-        document.getElementById('method_name').value = storedMethod;
-        selectMethod(storedMethod); // Highlight the active button
-    }
+    // Set values to inputs
+    selectedLex.value = initialLexVal;
+    selectedMethod.value = initialMethodVal;
+
+    // Highlight the active buttons
+    selectLexicon(initialLexVal);
+    selectMethod(initialMethodVal);
 });
 
 
 
-// function updateResultCard(formalityScore) {
-//     const resultCard = document.querySelector('#unique-results-card');
-//     console.log("Result Card:", resultCard); // Log resultCard for debugging
+function updateResultCard(score, method,lexicon) {
 
-//     if (!resultCard) {
-//         console.log("Result card not found.");
-//         return;
-//     }
-
-//     console.log("Result Card HTML:", resultCard.innerHTML); // Log the HTML of the result card for debugging
-
-//     const resultAlert = resultCard.querySelector('.alert'); // Target the alert within the card
-//     console.log("Result Alert:", resultAlert); // Log resultAlert for debugging
-
-//     if (!resultAlert) {
-//         console.log("Alert inside the card not found.");
-//         return;
-//     }
-
-//     console.log("Result Alert HTML:", resultAlert.innerHTML); // Log the HTML of the alert for debugging
-
-//     const resultHeading = resultAlert.querySelector('h4'); // Target the alert heading
-//     if (!resultHeading) {
-//         console.log("Heading inside the alert not found.");
-//         return;
-//     }
-
-//     let resultText = resultAlert.querySelector('p'); // Try to find a paragraph element for result text
-//     if (!resultText) {
-//         console.log("Creating a new paragraph element for the result text.");
-//         resultText = document.createElement('p');
-//         resultAlert.appendChild(resultText);
-//     }
-
-//     // Change the text and color based on the formality score
-//     if (formalityScore >= 0.5) {
-//         console.log("Updating to formal style.");
-//         resultAlert.className = 'alert alert-success'; // Green for success messages
-//         resultHeading.textContent = 'Formal';
-//         resultText.textContent = `Your text looks pretty formal with a formality score of ${formalityScore}.`;
-//     } else {
-//         console.log("Updating to informal style.");
-//         resultAlert.className = 'alert alert-warning'; // Yellow for informal
-//         resultHeading.textContent = 'Informal';
-//         resultText.textContent = `Your text has informal tone with a formality score of ${formalityScore}.`;
-//     }
-// }
-
-
-function updateResultCard(score, method) {
-
-
-    const thumbUpImage = document.getElementById('upper_image_slider');
-    const thumbDownImage = document.getElementById('lower_image_slider');
-
-    // Select the appropriate result card based on the method
-    const resultCard = document.querySelector('#unique-results-card');
 
     if (!resultCard) {
         console.log("Result card not found for method:", method);
@@ -242,7 +178,7 @@ function updateResultCard(score, method) {
             resultText.textContent = `Your text has an informal tone with a formality score of ${score}.`;
             
         }
-        updateThumbPosition(score, CONSTANTS.MIN_POS_NEG ,CONSTANTS.MAX_POS_NEG)
+        updateThumbPosition(score, CONSTANTS.MIN_FORMALITY,CONSTANTS.MAX_FORMALITY)
     } else if (method === 'Positive-Negative') {
 
         thumbUpImage.src = "static/images/thumb_up.png"
@@ -267,16 +203,15 @@ function updateResultCard(score, method) {
             resultHeading.textContent = 'Negative Sentiment';
             resultText.textContent = `Your text conveys a negative sentiment with a score of ${score}.`;
         }
-
-        updateThumbPosition(score, CONSTANTS.MIN_POS_NEG ,CONSTANTS.MAX_POS_NEG)
+        if (lexicon!='VADER')
+            {updateThumbPosition(score, CONSTANTS.MIN_POS_NEG_AFINN ,CONSTANTS.MAX_POS_NEG_AFINN)}
+        else {updateThumbPosition(score, CONSTANTS.MIN_POS_NEG_VADER ,CONSTANTS.MAX_POS_NEG_VADER)}
     } else {
         console.log("Unknown method:", method);
     }
 
     
 }
-
-
 
 
 function displayColoredText(paragraph, wordsList, colors) {
@@ -311,30 +246,8 @@ function displayColoredText(paragraph, wordsList, colors) {
     });
 
     // Display the result in the <pre> element with id "email_output"
-    document.getElementById("email_output").innerHTML = paragraph;
+    emailOutput.innerHTML = paragraph;
 }
-
-
-
-// function generateBlueShades(numbers) {
-//     // Find the min and max values to scale the blueness
-//     const minVal = 0;
-//     const maxVal = 0.03;
-
-//     // Function to convert a number to a blueish color
-//     const numberToBlueShade = (num) => {
-//       // Scale the number between 0 and 255 based on min and max values
-//       const blueIntensity = Math.floor(((num - minVal) / (maxVal - minVal)) * 255);
-//       const redAndGreen = 255 - blueIntensity;
-
-//       // Return the color in hexadecimal format
-//       return `rgb(${redAndGreen}, ${redAndGreen}, 255)`;
-//     };
-
-//     // Map each number in the array to its blueish shade
-//     return numbers.map(numberToBlueShade);
-//   }
-
 
 
   function generateRedAndBlueShades(numbers) {
@@ -379,27 +292,17 @@ function numberToHue(value) {
 }
 
 
-
 function updateCardHue(value) {
 
     color = numberToHue(value)
-    const card = document.getElementById('unique-results-card');
-    const alert = card.querySelector('.alert.alert-info');
-
-
-    // Set the background color using the calculated hue
-    alert.style.backgroundColor = color;
+    alertInfo.style.backgroundColor = color;
 }
 
 function updateThumbPosition(value, min, max) {
-    const rangeInput = document.getElementById('sentimentRange');
     const percentage = ((value - min) / (max - min)) * 100;
     // Set the value of the range input
     rangeInput.value = percentage;
-
-    // Calculate the percentage position of the thumb (optional, for styling)
     
-
     // Update the thumb's background color based on the value
     if (value < 0) {
         rangeInput.style.setProperty('--thumb-color', 'red');
@@ -411,9 +314,83 @@ function updateThumbPosition(value, min, max) {
 }
 
 
-  
-  
 
 
 
+// function updateResultCard(formalityScore) {
+//     const resultCard = document.querySelector('#unique-results-card');
+//     console.log("Result Card:", resultCard); // Log resultCard for debugging
 
+//     if (!resultCard) {
+//         console.log("Result card not found.");
+//         return;
+//     }
+
+//     console.log("Result Card HTML:", resultCard.innerHTML); // Log the HTML of the result card for debugging
+
+//     const resultAlert = resultCard.querySelector('.alert'); // Target the alert within the card
+//     console.log("Result Alert:", resultAlert); // Log resultAlert for debugging
+
+//     if (!resultAlert) {
+//         console.log("Alert inside the card not found.");
+//         return;
+//     }
+
+//     console.log("Result Alert HTML:", resultAlert.innerHTML); // Log the HTML of the alert for debugging
+
+//     const resultHeading = resultAlert.querySelector('h4'); // Target the alert heading
+//     if (!resultHeading) {
+//         console.log("Heading inside the alert not found.");
+//         return;
+//     }
+
+//     let resultText = resultAlert.querySelector('p'); // Try to find a paragraph element for result text
+//     if (!resultText) {
+//         console.log("Creating a new paragraph element for the result text.");
+//         resultText = document.createElement('p');
+//         resultAlert.appendChild(resultText);
+//     }
+
+//     // Change the text and color based on the formality score
+//     if (formalityScore >= 0.5) {
+//         console.log("Updating to formal style.");
+//         resultAlert.className = 'alert alert-success'; // Green for success messages
+//         resultHeading.textContent = 'Formal';
+//         resultText.textContent = `Your text looks pretty formal with a formality score of ${formalityScore}.`;
+//     } else {
+//         console.log("Updating to informal style.");
+//         resultAlert.className = 'alert alert-warning'; // Yellow for informal
+//         resultHeading.textContent = 'Informal';
+//         resultText.textContent = `Your text has informal tone with a formality score of ${formalityScore}.`;
+//     }
+// }
+
+// function generateBlueShades(numbers) {
+//     // Find the min and max values to scale the blueness
+//     const minVal = 0;
+//     const maxVal = 0.03;
+
+//     // Function to convert a number to a blueish color
+//     const numberToBlueShade = (num) => {
+//       // Scale the number between 0 and 255 based on min and max values
+//       const blueIntensity = Math.floor(((num - minVal) / (maxVal - minVal)) * 255);
+//       const redAndGreen = 255 - blueIntensity;
+
+//       // Return the color in hexadecimal format
+//       return `rgb(${redAndGreen}, ${redAndGreen}, 255)`;
+//     };
+
+//     // Map each number in the array to its blueish shade
+//     return numbers.map(numberToBlueShade);
+//   }
+
+// function processString(firstStr, secondStr, thirdStr) {
+//     const redFirstStr = `<span style="color: red;">${firstStr}</span>`;
+//     const blueSecondStr = `<span style="color: blue;">${secondStr}</span>`;
+//     const greenThirdStr = `<span style="color: green;">${thirdStr}</span>`;
+
+//     // Use <br> for line breaks
+//     const processedStr = redFirstStr + '<br>' + blueSecondStr + '<br>' + greenThirdStr;
+
+//     return processedStr;
+// }

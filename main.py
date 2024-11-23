@@ -18,6 +18,7 @@ basic_auth = BasicAuth(app)
 
 # Loading trained models and instances
 path_form_inform_model = r"C:\Users\timur\Documents\GitHub\EmailSentin\lstm_based\models\model1\model_2_atn.pth"
+
 form_inform_model = mdl1.load_model(path_form_inform_model)
 word2vec_instance = KeyedVectors.load(r"C:\Users\timur\Documents\GitHub\EmailSentin\lstm_based\models\model1\glove-twitter-25.model")
 
@@ -38,22 +39,16 @@ def process_input():
 
     if method == 'Positive-Negative':
      score,attention_weights,processed_tokens = pos_neg_score(user_input, lexicon)
-     polarized_attention = attention_weights
-     # Positivity score between -1 and 1 -1 being most negative and 1 being most positive.
+     scores_by_word = attention_weights
+     # Positivity score between -1 and 1 -1 being most negative and 1 being most positive (for VADER).
+     # Positivity score unbounded but in general between -20 and 20 (for AFINN-96 AND AFINN-111)
 
     elif method == 'Formality Analysis':
      score,attention_weights,processed_tokens = form_inform_score(user_input,form_inform_model,word2vec_instance) 
-     polarized_attention =  attention_weights*np.sign(score)*3
+     scores_by_word =  attention_weights*np.sign(score)*3
+     # Formality score between -5 and 5 -5 being most informal and 5 being most formal.
      
 
-
-
-
-
-     
-
-
-    
     # For now the parsing feature is paused.
     # intro_text,body_text,conclusion_text =  get_email_components(user_input)  # Assuming split_text is defined elsewhere
     
@@ -78,11 +73,12 @@ def process_input():
         'conclusion_text':conclusion_text,
         #-----------------------
 
-        'attn_list':list(polarized_attention),
+        'scores_by_word':list(scores_by_word),
         'processed_tokens':processed_tokens,
         'entire_text':entire_text,
-        'score':round(float(score), 1),
-        'method':method 
+        'score':round(float(score), 1), # Pass the rounded score
+        'method':method,
+        'lexicon':lexicon
     }
 
     # Return a JSON response
