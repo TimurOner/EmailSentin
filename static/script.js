@@ -98,14 +98,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const initialLexVal = 'AFINN-96';
     const initialMethodVal = 'Positive-Negative';
 
+    // Retrieve the DOM elemenst that will be used.
+
     selectedLex = document.getElementById('lex_name');
     selectedMethod = document.getElementById('method_name');
     thumbUpImage = document.getElementById('upper_image_slider');
     thumbDownImage = document.getElementById('lower_image_slider');
-    resultCard = document.querySelector('#unique-results-card');
     alertInfo = document.querySelector('.alert.alert-info');
     rangeInput = document.getElementById('sentimentRange');
     emailOutput = document.getElementById("email_output");
+
+
+    resultCard = document.querySelector('#unique-results-card');
+    resultAlert = resultCard.querySelector('.alert');
+    resultHeading = resultAlert.querySelector('h4');
+    resultText = resultAlert.querySelector('p');
 
     // Set values to inputs
     selectedLex.value = initialLexVal;
@@ -127,9 +134,7 @@ function updateResultCard(score, method,lexicon) {
     }
 
     console.log("Result Card HTML:", resultCard.innerHTML); // Log the HTML of the result card for debugging
-
     // Target the alert within the card
-    resultAlert = resultCard.querySelector('.alert');
     console.log("Result Alert:", resultAlert);
 
     if (!resultAlert) {
@@ -140,14 +145,14 @@ function updateResultCard(score, method,lexicon) {
     console.log("Result Alert HTML:", resultAlert.innerHTML); // Log the HTML of the alert for debugging
 
     // Target the alert heading
-    resultHeading = resultAlert.querySelector('h4');
+    
     if (!resultHeading) {
         console.log("Heading inside the alert not found.");
         return;
     }
 
     // Try to find a paragraph element for result text, create one if not found
-    resultText = resultAlert.querySelector('p');
+    
     if (!resultText) {
         console.log("Creating a new paragraph element for the result text.");
         resultText = document.createElement('p');
@@ -278,6 +283,7 @@ function displayColoredText(paragraph, wordsList, colors) {
 
 function numberToHue(value) {
     // Define the color mappings directly
+    // Used for formality and pos-neg.
     if (value <= -15) {
         return "#cc0000";  
     } else if (value <= -10) {

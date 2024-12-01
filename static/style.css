@@ -19,14 +19,9 @@ body, html {
 } 
 
 
-.row {
-    flex: 1; /* Makes the row take up remaining space */
-    overflow-y: auto; /* Allow scrolling if content overflows */
-}
-
 .footer {
-    background-color: #007bff;
-    color: white;
+    background-color: white;
+    color: black;  /* Change this to your preferred text color */
     text-align: center;
     padding: 10px;
     width: 100%;
@@ -118,15 +113,6 @@ button[type="button"]:hover {
 }
 
 
-.footer {
-    text-align: center; /* Centers the text horizontally */
-    background-color:  #EDF0F2;
-    color: black; /* Footer text color */
-    padding: 20px; /* Adds spacing inside the footer */
-    font-size: 14px; /* Sets the font size */
-    width: 100%; /* Ensures the footer spans the full width */
-}
-
 
 /* Style for the sentiment displaying runner track */
 
@@ -141,10 +127,7 @@ button[type="button"]:hover {
 /* Container for vertical alignment */
 
 
-.slider-image {
-    width: 50px;            /* Set a fixed width for images */
-    height: auto;           /* Maintain aspect ratio */
-}
+
 
 .slider-container {
 
@@ -154,8 +137,6 @@ button[type="button"]:hover {
     align-items: center; /* Vertically center the content */
     height: 500px;             /* Adjust container height to allow the slider to grow */
     width: 100px;              /* Keep it narrow for proper rotation */
-    margin: auto;              /* Ensure the container itself is centered */
-    overflow: hidden;          /* Hide overflow if needed */
 }
 
 /* Vertical range slider */
