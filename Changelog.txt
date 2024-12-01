@@ -1,0 +1,8 @@
+v1.0.0
+
+- Start of the versioning.
+- The app has one page and performs basic sentiment analysis.
+- Positivity sentiment and formality sentiment are performed. The sentiment is based on a BiLSTM for sentiment analysis and lexicons like VADER and AFINN for pos.neg.
+- Layout is simple but work as intended.
+- The training data is limited for formality classification but the performance for tasks seems good (no serious testing/validation process undertaken). 
+- Release Date: 01.12.2024
