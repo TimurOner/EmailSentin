@@ -40,6 +40,7 @@ function submitForm() {
         const processedText = data['processed_tokens'];
         const method = data['method']
         const lexicon =  data['lexicon']
+        
         let colors;
 
 
@@ -47,8 +48,16 @@ function submitForm() {
         // document.getElementById('output').value = score;
         // document.getElementById('email_output').innerHTML = coloredText  // Display colored text
         colors = generateRedAndBlueShades(scoresByWord)
+        
           
         
+        feedbackContent.style.display = 'flex'; // Temporarily show the content to measure it
+        const contentHeight = feedbackContent.scrollHeight;
+
+        // Apply the calculated height to the button
+        feedbackButton.style.height = `${contentHeight}px`;
+        feedbackButton.style.padding = '10px 15px'; // Add padding
+        feedbackButton.classList.add('active'); // Mark as active
         
         displayColoredText(entireText,processedText , colors);
         // updateOutputImage(method);
@@ -113,6 +122,11 @@ document.addEventListener('DOMContentLoaded', function() {
     resultAlert = resultCard.querySelector('.alert');
     resultHeading = resultAlert.querySelector('h4');
     resultText = resultAlert.querySelector('p');
+    
+
+    feedbackButton = document.getElementById('feedbackButton');
+    feedbackContent = document.getElementById('feedbackContent');
+    
 
     // Set values to inputs
     selectedLex.value = initialLexVal;

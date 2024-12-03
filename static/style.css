@@ -64,8 +64,6 @@ button[type="button"]:hover {
     background-color: #357a34; /* Darker background on hover */
 }
 
-
-
 .text_class{
     border: 2px solid #333; /* Adds a solid border around the div */
     padding: 20px; /* Adds space inside the border, between the border and the content */
@@ -198,10 +196,64 @@ input[type="range"]::-webkit-slider-thumb {
 
 
 
-/* Style for the output legend runner track */
 
 
+/* Style for star rating */
+.star-rating {
+    display: inline-flex;
+    flex-direction: ltr !important; /* Ensure the stars are in left-to-right order */
+    font-size: 2rem;
+    cursor: pointer;
+}
 
+.star {
+    color: #ccc; /* Default color */
+    transition: color 0.2s;
+}
+
+.star:hover,
+.star:hover ~ .star {
+    color: #f39c12; /* Highlighted star color */
+}
+
+.star.selected,
+.star.selected ~ .star {
+    color: #f39c12; /* Permanently selected stars */
+}
+
+
+/* Feedback Button Base */
+.btn.btn-light {
+    height: 0px; /* Initially hidden */
+    overflow: hidden; /* Hide inner content */
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* No padding initially */
+    background-color: #f8f9fa; /* Light gray */
+    border: 1px solid #ddd;
+    border-radius: 0;
+    transition: height 0.5s ease, padding 0.5s ease; /* Smooth transition for height and padding */
+}
+
+/* When visible (using a specific height) */
+.btn.btn-light.active {
+    height: 80px; /* Adjust based on your content's height */
+    padding: 10px 15px; /* Add padding */
+    overflow: visible; /* Show content */
+    background-color: #f8f9fa; /* Light gray */
+}
+
+/* Button Active (Pressed) Styling */
+.btn.btn-light:active {
+    background-color: #f8f9fa; /* Light gray */
+}
+
+/* Hover Styling */
+.btn.btn-light:hover {
+    background-color: #f8f9fa; /* Light gray */
+}
 
 
 
