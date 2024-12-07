@@ -59,6 +59,7 @@ function submitForm() {
         feedbackButton.style.padding = '10px 15px'; // Add padding
         feedbackButton.classList.add('active'); // Mark as active
         
+        
         displayColoredText(entireText,processedText , colors);
         // updateOutputImage(method);
         updateResultCard(score,method,lexicon);
@@ -67,6 +68,32 @@ function submitForm() {
     .catch(error => console.error('Error fetching data:', error));
 }
 
+function submitRating() {
+    // Get the selected rating value
+    const selectedRating = document.querySelector('input[name="rating"]:checked');
+    
+    // Create form data to send to the backend
+    const formData = new FormData();
+    formData.append('rating', selectedRating.value);
+
+    // Send the data to the backend using fetch
+    fetch('/submit_rating', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {  
+
+        const feedbackRating = data['feedback_rating']
+    
+
+
+    })
+    .catch(error => {
+        console.error('Error submitting rating:', error);
+        alert("An error occurred while submitting your rating.");
+    });
+}
 
 function selectLexicon(value) {
     // Update the hidden input with the selected lexicon value
@@ -126,6 +153,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     feedbackButton = document.getElementById('feedbackButton');
     feedbackContent = document.getElementById('feedbackContent');
+
+    selectedRating = document.querySelector('input[name="rating"]:checked')?.value;
     
 
     // Set values to inputs

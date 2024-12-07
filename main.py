@@ -8,6 +8,7 @@ from lstm_based.models.model1 import model_prod as mdl1
 from gensim.models import KeyedVectors
 
 import numpy as np
+from user_feedback.save_feedback import append_value
 
 
 app = Flask(__name__)
@@ -16,8 +17,9 @@ app.config['BASIC_AUTH_PASSWORD'] = '1234'
 basic_auth = BasicAuth(app)
 
 
-# Loading trained models and instances
+# Loading trained models and instances. Defining paths.
 path_form_inform_model = r"C:\Users\timur\Documents\GitHub\EmailSentin\lstm_based\models\model1\model_2_atn.pth"
+path_save_feedback = r"C:\Users\timur\Documents\GitHub\EmailSentin\user_feedback\feedback.csv"
 
 form_inform_model = mdl1.load_model(path_form_inform_model)
 word2vec_instance = KeyedVectors.load(r"C:\Users\timur\Documents\GitHub\EmailSentin\lstm_based\models\model1\glove-twitter-25.model")
@@ -83,6 +85,15 @@ def process_input():
 
     # Return a JSON response
     return jsonify(resp)
+
+
+@app.route('/submit_rating', methods=['POST'])
+def submit_rating():
+    rating = request.form.get('rating')  # Retrieve 'rating' from the form data
+    append_value(path_save_feedback,rating)
+    resp = { 'feedback_rating': rating }
+    return jsonify(resp)  # JSON response
+   
 
 if __name__ == '__main__':
     app.run(debug=False)
