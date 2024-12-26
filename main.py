@@ -78,7 +78,7 @@ def process_input():
         'scores_by_word':list(scores_by_word),
         'processed_tokens':processed_tokens,
         'entire_text':entire_text,
-        'score':round(float(score), 1), # Pass the rounded score
+        'score':round(float(score), 1), 
         'method':method,
         'lexicon':lexicon
     }
@@ -89,8 +89,10 @@ def process_input():
 
 @app.route('/submit_rating', methods=['POST'])
 def submit_rating():
-    rating = request.form.get('rating')  # Retrieve 'rating' from the form data
-    append_value(path_save_feedback,rating)
+    rating = request.form.get('rating')  
+    rated_method = request.form.get('rated_method')  
+    print(rated_method )
+    append_value(path_save_feedback,rating,rated_method)
     resp = { 'feedback_rating': rating }
     return jsonify(resp)  # JSON response
    

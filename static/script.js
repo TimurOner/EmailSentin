@@ -21,6 +21,7 @@ function submitForm() {
 
     localStorage.setItem('selectedLexiconVal', selectedLex.value);
     localStorage.setItem('selectedMethodVal', selectedMethod.value);
+    feedbackContent.innerHTML = localStorage.getItem("feedbackContent");
 
     fetch('/process_input', {
         method: 'POST',
@@ -40,6 +41,8 @@ function submitForm() {
         const processedText = data['processed_tokens'];
         const method = data['method']
         const lexicon =  data['lexicon']
+
+        localStorage.setItem('activeMethod', method);
         
         let colors;
 
@@ -58,6 +61,8 @@ function submitForm() {
         feedbackButton.style.height = `${contentHeight}px`;
         feedbackButton.style.padding = '10px 15px'; // Add padding
         feedbackButton.classList.add('active'); // Mark as active
+
+
         
         
         displayColoredText(entireText,processedText , colors);
@@ -71,10 +76,13 @@ function submitForm() {
 function submitRating() {
     // Get the selected rating value
     const selectedRating = document.querySelector('input[name="rating"]:checked');
+    const activeMethod = localStorage.getItem("activeMethod");
     
     // Create form data to send to the backend
     const formData = new FormData();
+    feedbackContent.innerHTML = `<p>Thank you for your feedback!</p>`
     formData.append('rating', selectedRating.value);
+    formData.append('rated_method', activeMethod);
 
     // Send the data to the backend using fetch
     fetch('/submit_rating', {
@@ -153,6 +161,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     feedbackButton = document.getElementById('feedbackButton');
     feedbackContent = document.getElementById('feedbackContent');
+    localStorage.setItem("feedbackContent", feedbackContent.innerHTML);
+    
 
     selectedRating = document.querySelector('input[name="rating"]:checked')?.value;
     
