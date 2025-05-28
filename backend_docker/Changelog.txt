@@ -1,0 +1,19 @@
+v1.0.0
+
+- Start of the versioning.
+- The app has one page and performs basic sentiment analysis.
+- Positivity sentiment and formality sentiment are performed. The sentiment is based on a BiLSTM for sentiment analysis and lexicons like VADER and AFINN for pos.neg.
+- Layout is simple but work as intended.
+- The training data is limited for formality classification but the performance for tasks seems good (no serious testing/validation process undertaken). 
+- Release Date: 01.12.2024
+
+v1.0.1
+
+- Few adjustments and prepared the app for dockerization.
+- Few bug fixes.
+
+
+v1.1 
+- Completely changed the folder structure to allow more lightweight dockerization (so that one wouldn't need to upload the training data into docker).
+- Split the code so that it has backend part that will be implemented as a Lambda function and the frontend part (html,css and js) will be hosted in S3 bucket.
+- Tested locally the backend with AWS local interface emulator. 

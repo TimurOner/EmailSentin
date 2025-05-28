@@ -1,3 +1,5 @@
 data/local_data
 env/
 lstm_based/models/model1
+backend_docker/lstm_based/models/model1/glove-twitter-25.model.vectors.npy
+backend_docker/lstm_based/models/model1/glove-twitter-25.model
