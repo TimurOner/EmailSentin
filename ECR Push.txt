@@ -1,0 +1,4 @@
+docker build -t sentiment-analyzer-v1.1:latest .
+aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 124355638485.dkr.ecr.eu-north-1.amazonaws.com
+docker tag sentiment-analyzer-v1.1:latest 124355638485.dkr.ecr.eu-north-1.amazonaws.com/sentiment-analyzer
+docker push 124355638485.dkr.ecr.eu-north-1.amazonaws.com/sentiment-analyzer

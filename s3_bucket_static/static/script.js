@@ -14,63 +14,60 @@ const CONSTANTS = {
 
 
 function submitForm() {
-    // Gather the form data
-    const formData = new FormData(document.getElementById('input_form'));
+    const formElement = document.getElementById('input_form');
+    const formData = new FormData(formElement);
 
-    // Store selected lexicon and method before submission
+    // Convert FormData to a plain object
+    const formObject = {};
+    formData.forEach((value, key) => {
+        formObject[key] = value;
+    });
 
-    localStorage.setItem('selectedLexiconVal', selectedLex.value);
-    localStorage.setItem('selectedMethodVal', selectedMethod.value);
+    // Save selected values and restore feedback content
+    localStorage.setItem('selectedLexiconVal', formObject['lex_name']);
+    localStorage.setItem('selectedMethodVal', formObject['method_name']);
     feedbackContent.innerHTML = localStorage.getItem("feedbackContent");
 
-    fetch('/process_input', {
+    // Send JSON request to the API
+    fetch('https://t6w6xtyqi9.execute-api.eu-north-1.amazonaws.com/stage-1/process_input', {
         method: 'POST',
-        body: formData
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formObject)
     })
-    .then(response => response.json()) // Expect a JSON response
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
-        
-        // const pred_class = data['pred_class']
-        // const introText = data['intro_text'];
-        // const bodyText = data['body_text'];
-        // const conclusionText = data['conclusion_text'];
-
         const score = data['score'];
         const entireText = data['entire_text'];
         const scoresByWord = data['scores_by_word'];
         const processedText = data['processed_tokens'];
-        const method = data['method']
-        const lexicon =  data['lexicon']
+        const method = data['method'];
+        const lexicon = data['lexicon'];
 
+        // Store the method in localStorage
         localStorage.setItem('activeMethod', method);
-        
-        let colors;
 
+        // Generate colors and update UI
+        const colors = generateRedAndBlueShades(scoresByWord);
 
-        // const inputProcessed = processString(introText, bodyText, conclusionText);
-        // document.getElementById('output').value = score;
-        // document.getElementById('email_output').innerHTML = coloredText  // Display colored text
-        colors = generateRedAndBlueShades(scoresByWord)
-        
-          
-        
-        feedbackContent.style.display = 'flex'; // Temporarily show the content to measure it
+        feedbackContent.style.display = 'flex';
         const contentHeight = feedbackContent.scrollHeight;
-
-        // Apply the calculated height to the button
         feedbackButton.style.height = `${contentHeight}px`;
-        feedbackButton.style.padding = '10px 15px'; // Add padding
-        feedbackButton.classList.add('active'); // Mark as active
+        feedbackButton.style.padding = '10px 15px';
+        feedbackButton.classList.add('active');
 
-
-        
-        
-        displayColoredText(entireText,processedText , colors);
-        // updateOutputImage(method);
-        updateResultCard(score,method,lexicon);
-
+        displayColoredText(entireText, processedText, colors);
+        updateResultCard(score, method, lexicon);
     })
-    .catch(error => console.error('Error fetching data:', error));
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
 }
 
 function submitRating() {
