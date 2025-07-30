@@ -230,7 +230,6 @@ input[type="range"]::-webkit-slider-thumb {
     background-color: #f8f9fa; /* Light gray */
 }
 
-
 .rating { 
     border: none;
     float: left;
@@ -318,5 +317,38 @@ input[type="range"]::-webkit-slider-thumb {
     color: #3498db; /* Keep the text blue on hover */
 
     
+.card_res {
+  width: 18rem; /* Fixed width for medium and larger screens */
+}
+
+#submit_button {
+  width: 18rem;
+}
+
+/* On small and extra small devices, stack vertically */
+@media (max-width: 950px) {
+  #submit_button,
+  .btn-group {
+    width: 100%;
+    min-width: auto;
     
- 
+  }
+
+  .btn-group {
+    flex-direction: column;
+  }
+
+  .btn-group > .btn {
+    margin-right: 0;
+    margin-bottom: 0.3rem;
+  }
+
+  .btn-group > .btn:last-child {
+    margin-bottom: 0;
+  }
+
+ .card_res {
+    width: auto;        /* Let it resize */
+    min-width: 18rem;   /* But not smaller than 18rem */
+  }
+}

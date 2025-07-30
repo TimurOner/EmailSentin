@@ -16,5 +16,14 @@ v1.0.1
 v1.1 
 - Completely changed the folder structure to allow more lightweight dockerization (so that one wouldn't need to upload the training data into docker).
 - Split the code so that it has backend part that will be implemented as a Lambda function and the frontend part (html,css and js) will be hosted in S3 bucket.
-- Tested locally the backend with AWS local interface emulator. 
-- 
+- Tested locally the backend with AWS local interface emulator.  
+- This version was containerized and pushed to AWS ECR. First AWS implementation was done by defining backend as a AWS Lambda Function. The frontend files are hosted in S3 Buckets.
+
+
+v1.1.1
+- Reworked the frontend layout so the user interface looks good on any screen size.
+- A couple of minor UI updates for better readability (like including a placeholder text to the output section)
+
+Backend Model for Formality analysis: model2_atn
+Backend version: v1.0-lambda
+Frontend version v1.0 

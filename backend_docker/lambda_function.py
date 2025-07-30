@@ -27,6 +27,9 @@ path_form_inform_model = os.path.join(os.getcwd(), "lstm_based/models/model1/mod
 path_save_feedback = os.path.join(os.getcwd(), "user_feedback/feedback.csv")
 word2vec_instance_path = os.path.join(os.getcwd(), "lstm_based/models/model1/glove-twitter-25.model")
 
+path_form_inform_model_wind = r'C:\Users\timur\Documents\GitHub\EmailSentin\backend_docker\lstm_based\models\model1\model_2_atn.pth'
+word2vec_instance_path_wind = r'C:\Users\timur\Documents\GitHub\EmailSentin\backend_docker\lstm_based\models\model1\glove-twitter-25.model'
+
 form_inform_model = mdl1.load_model(path_form_inform_model)
 word2vec_instance = KeyedVectors.load(word2vec_instance_path)
 
