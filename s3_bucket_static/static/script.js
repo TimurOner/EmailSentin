@@ -78,26 +78,26 @@ function submitRating() {
     // Create form data to send to the backend
     const formData = new FormData();
     feedbackContent.innerHTML = `<p>Thank you for your feedback!</p>`
-    formData.append('rating', selectedRating.value);
-    formData.append('rated_method', activeMethod);
+    // formData.append('rating', selectedRating.value);
+    // formData.append('rated_method', activeMethod);
 
     // Send the data to the backend using fetch
-    fetch('/submit_rating', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {  
+    // fetch('/submit_rating', {
+    //     method: 'POST',
+    //     body: formData
+    // })
+    // .then(response => response.json())
+    // .then(data => {  
 
-        const feedbackRating = data['feedback_rating']
+    //     const feedbackRating = data['feedback_rating']
     
 
 
-    })
-    .catch(error => {
-        console.error('Error submitting rating:', error);
-        alert("An error occurred while submitting your rating.");
-    });
+    // })
+    // .catch(error => {
+    //     console.error('Error submitting rating:', error);
+    //     alert("An error occurred while submitting your rating.");
+    // });
 }
 
 function selectLexicon(value) {

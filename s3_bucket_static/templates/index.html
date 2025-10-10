@@ -24,7 +24,7 @@
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="./about.html">About</a>
                     </li>
                 </ul>
             </div>
@@ -57,11 +57,11 @@
                                     <div class="col-12 mb-3">
                                         <div class="card card_res">
                                             <div class="card-body">
-                                                <h5 class="card-title">Lexicon</h5>
+                                                <h5 class="card-title">Detail Level of Analysis</h5>
                                                 <div class="btn-group no-gap-buttons" role="group" aria-label="Lexicon selection">
-                                                    <button type="button" class="btn btn-outline-secondary lexicon-btn" onclick="selectLexicon('AFINN-96')">AFINN-96</button>
-                                                    <button type="button" class="btn btn-outline-secondary lexicon-btn" onclick="selectLexicon('AFINN-111')">AFINN-111</button>
-                                                    <button type="button" class="btn btn-outline-secondary lexicon-btn" onclick="selectLexicon('VADER')">VADER</button>
+                                                   <!-- <button type="button" class="btn btn-outline-secondary lexicon-btn" onclick="selectLexicon('AFINN-96')">AFINN-96</button> -->
+                                                    <button type="button" class="btn btn-outline-secondary lexicon-btn" onclick="selectLexicon('AFINN-111')">Simple</button>
+                                                    <button type="button" class="btn btn-outline-secondary lexicon-btn" onclick="selectLexicon('VADER')">Advanced</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -71,11 +71,11 @@
                                     <div class="col-12 mb-3">
                                         <div class="card card_res">
                                             <div class="card-body">
-                                                <h5 class="card-title">Analysis Type </h5>
+                                                <h5 class="card-title">What kind of Sentiment? </h5>
                                                 <div class="btn-group no-gap-buttons" role="group" aria-label="Method selection">
                                                     
-                                                    <button type="button" class="btn btn-outline-secondary method-btn" onclick="selectMethod('Positive-Negative')">Positive-Negative</button>
-                                                    <button type="button" class="btn btn-outline-secondary method-btn" onclick="selectMethod('Formality Analysis')">Formality Analysis</button>
+                                                    <button type="button" class="btn btn-outline-secondary method-btn" onclick="selectMethod('Positive-Negative')">Positive or Negative</button>
+                                                    <button type="button" class="btn btn-outline-secondary method-btn" onclick="selectMethod('Formality Analysis')">Formal or Informal</button>
                                                 </div>
                                             </div>
                                         </div>
