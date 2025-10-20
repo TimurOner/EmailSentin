@@ -12,6 +12,10 @@ const CONSTANTS = {
     POS_NEG_THR: 0.1
 };
 
+let selectedLex, selectedMethod, thumbUpImage, thumbDownImage;
+let alertInfo, rangeInput, emailOutput;
+let resultCard, resultAlert, resultHeading, resultText;
+let feedbackButton, feedbackContent, selectedRating;
 
 function submitForm() {
     const formElement = document.getElementById('input_form');
@@ -103,6 +107,8 @@ function submitRating() {
 function selectLexicon(value) {
     // Update the hidden input with the selected lexicon value
     document.getElementById('lex_name').value = value;
+
+    // Get all lexicon buttons
     const lexiconButtons = document.querySelectorAll('.lexicon-btn');
 
     // Remove active class from all lexicon buttons
@@ -110,33 +116,37 @@ function selectLexicon(value) {
         button.classList.remove('active');
     });
 
-    // Add active class to the clicked lexicon button
-    const clickedLexiconButton = Array.from(lexiconButtons).find(button => button.textContent.trim() === value);
+    // Add active class to the clicked lexicon button using data-lex
+    const clickedLexiconButton = Array.from(lexiconButtons).find(
+        button => button.dataset.lex === value
+    );
+
     if (clickedLexiconButton) {
         clickedLexiconButton.classList.add('active');
     }
 }
 
 function selectMethod(value) {
-    // Update the hidden input with the selected method value
+    // Update hidden input or state if needed
     document.getElementById('method_name').value = value;
+
     const methodButtons = document.querySelectorAll('.method-btn');
 
-    // Remove active class from all method buttons
-    methodButtons.forEach(button => {
-        button.classList.remove('active');
-    });
+    // Remove active class from all buttons
+    methodButtons.forEach(button => button.classList.remove('active'));
 
-    // Add active class to the clicked method button
-    const clickedMethodButton = Array.from(methodButtons).find(button => button.textContent.trim() === value);
-    if (clickedMethodButton) {
-        clickedMethodButton.classList.add('active');
+    // Add active class to the clicked button using data-method
+    const clickedButton = Array.from(methodButtons).find(
+        button => button.dataset.method === value
+    );
+
+    if (clickedButton) {
+        clickedButton.classList.add('active');
     }
 }
-
 document.addEventListener('DOMContentLoaded', function() {
     // Retrieve stored values from localStorage
-    const initialLexVal = 'AFINN-96';
+    const initialLexVal = 'AFINN-111';
     const initialMethodVal = 'Positive-Negative';
 
     // Retrieve the DOM elemenst that will be used.

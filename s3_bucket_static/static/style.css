@@ -1,16 +1,20 @@
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-body, html {
+html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+    min-height:100%;
+     background-color: #3498db;
 }
 
-
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* ensures body is at least full viewport height */
+    padding-top: 30px;
+    
+}
 .navbar-nav {
     padding-left: 20px; /* Adjust as needed */
     background-color:#edf0f2;
@@ -25,7 +29,6 @@ body, html {
     background-color: white;
     color: black;  /* Change this to your preferred text color */
     text-align: center;
-    padding: 10px;
     width: 100%;
     margin-top: auto; /* Ensures the footer stays at the bottom of the content */
     position: relative;
@@ -112,8 +115,17 @@ button[type="button"]:hover {
     margin-left: 50px; /* Adjust the value as needed */
 }
 
+#main-content {
+    flex-grow: 1;
+    padding-top: 70px; /* adjust to match your navbar height */
+}
+.container-fluid.full-height {
+    height: 100%;
+}
 
-
+.row.full-height {
+    height: 100%;
+}
 /* Style for the sentiment displaying runner track */
 
 /* Basic styles for the range input */
@@ -325,6 +337,19 @@ input[type="range"]::-webkit-slider-thumb {
   width: 18rem;
 }
 
+
+/* Lastly added button container class */
+
+.button-container-class {
+  display: flex;               
+  justify-content: center;     
+  margin-bottom: 1rem;
+  width: 100%;   
+        
+}
+
+
+
 /* On small and extra small devices, stack vertically */
 @media (max-width: 950px) {
   #submit_button,
@@ -333,7 +358,12 @@ input[type="range"]::-webkit-slider-thumb {
     min-width: auto;
     
   }
-
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* ensures body is at least full viewport height */
+    padding-top: 70px;
+}
   .btn-group {
     flex-direction: column;
   }
@@ -351,4 +381,36 @@ input[type="range"]::-webkit-slider-thumb {
     width: auto;        /* Let it resize */
     min-width: 18rem;   /* But not smaller than 18rem */
   }
+}
+
+.card-body-button {
+  display: flex;              
+  flex-direction: column;     
+  align-items: center;         
+
+}
+.no-gap-buttons {            
+                  
+  width: 80%;                 
+         
+}
+
+
+
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Full viewport height */
+}
+
+main {
+    flex: 1; /* Take all available space */
+}
+
+.footer {
+    background-color: #0d94ed;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
 }

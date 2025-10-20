@@ -24,6 +24,15 @@ v1.1.1
 - Reworked the frontend layout so the user interface looks good on any screen size.
 - A couple of minor UI updates for better readability (like including a placeholder text to the output section)
 
-Backend Model for Formality analysis: model2_atn
+ML Model for Formality analysis: model2_atn
 Backend version: v1.0-lambda
 Frontend version v1.0 
+
+
+v1.2 (20 Oct 2025)
+- Major bug fixes in frontend - solved the issue of non functioning navbar and the formatting issue for different screen sizes.
+- Fixed a critical issue in backend that prevented correct update of sentiment values in the frontend.
+
+ML Model for Formality analysis: model2_atn
+Backend version: v1.1-lambda
+Frontend version: v1.1
