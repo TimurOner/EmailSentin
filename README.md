@@ -12,23 +12,31 @@ Since labeling the entire corpus was not feasible, a systematic sampling approac
 
 The ENRON corpus introduced challenges due to the prevalence of threaded conversations, where multiple replies in a single thread may differ in formality. To avoid ambiguous supervision signals, messages were isolated so that each training instance corresponded to a single, self-contained email. This ensured cleaner and more reliable training signals for the model.
 
+![Alt text](images/sample_length_dist.png)
+
 🧹 Data Preprocessing Steps
 
-Tokenization: Split user input into tokens using nltk.word_tokenize.
-
-Stopword Removal: Removed common English stopwords.
-
-Word Embedding: Used the GloVe-Twitter-25 model to embed each token into a 25-dimensional vector. Inputs were clipped to a maximum of 100 tokens.
+1. Tokenization: Split user input into tokens using nltk.word_tokenize.
+2.Stopword Removal: Removed common English stopwords.
+3.Word Embedding: Used the GloVe-Twitter-25 model to embed each token into a 25-dimensional vector. Inputs were clipped to a maximum of 100 tokens.
 
 A lightweight embedding model was chosen to maintain efficiency given the limited dataset size and computational resources, while still preserving meaningful semantic information from the text.
 
 ## 🏗️ The Architecture
 
-## 📊 Performance of the Sentiment Analyzer
+![Alt text](images/aws_sent_1.1_drawio.png)
+
+
+
 
 ## 🧪 Testing / Simulation Results
+
+
+![Test Set Confusion Matrix for longer inputs](images/cf_mtrx_long.png)
+![Test Set Confusion Matrix for shorter inputs](images/cf_mtrx_short.png)
 
 
 ## ⚡ Points for Improvement
 User star-rating system: A feedback mechanism where users can rate the assesments made by the application is planned for future versions. This can reveal not only the content on which the model gave the least satisfactory performance but also ways to finetune and improve the user satisfaction.
 More sentiment types, multimodal capabilities: New sentiment analysis types and multimodal capabilities are planned for future releases.
+
