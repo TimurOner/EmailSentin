@@ -56,7 +56,12 @@ To better demonstrate the ability of the formality classifier to handle edge cas
 - Informal sentences that are written in formal language but carry sarcastic tone so are informal in reality.
 - Sentences with any other confusion structure that can confuse the model to make erroneous predictions.
 
-![Alt text](images/edge_case_cf_mtrx.png)
+<p align="center">
+  <img src="images/edge_case_cf_mtrx.png" alt="Edge Case Confusion Matrix" width="50%">
+</p>
+
+
+Claude 4.0 was prompted to create 100 formal and 100 informal sentences having properties that are mentioned above. The results show us the model is still good at detection formal sentences with confusing structure but the model fails at detecting the sarcasm in sentences with formal wording - it classifies them as formal despite sarcastic tone. This marks one of the weak points of the current model, and future attempts shall make model more robust to sarcasm.
 
 ## ⚡ Points for Improvement
 User star-rating system: A feedback mechanism where users can rate the assesments made by the application is planned for future versions. This can reveal not only the content on which the model gave the least satisfactory performance but also ways to finetune and improve the user satisfaction.
