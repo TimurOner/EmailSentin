@@ -50,6 +50,13 @@ To test the performance of the sentiment classification 200 emails, each approxi
 The test results for the test set that contained 50 word mails on average tell us that the model has 84.5 percent accuracy that can be considered pretty good. The recall with 91 percent is better that than precision that is 0.805. With the assumption that the formal mail are labelled as 1, these numbers suggest that the model has a slightly better performance in recognizing formal emails correctly than informal ones. The logit distribution graph of the samples from both of the classes reveals this difference a little bit more: the distribution of the logits for the formal emails has a lower deviation around the peak thus a smaller percentage of formal emails are assigned a logit below 0 (predicted as informal).
 ## 🧹 Other Technical Considerations and Edge Case Evaluation
 
+To better demonstrate the ability of the formality classifier to handle edge cases, we generated various sentence lists of 100 50-word sentences having following properties that aim to test the robustness of the sentiment classifier handling ambigious and confusing text:
+
+- Formal sentences that are formal despite some words that can be also used in informal contexts.
+- Informal sentences that are written in formal language but carry sarcastic tone so are informal in reality.
+- Sentences with any other confusion structure that can confuse the model to make erroneous predictions.
+
+![Alt text](images/edge_case_cf_mtrx.png)
 
 ## ⚡ Points for Improvement
 User star-rating system: A feedback mechanism where users can rate the assesments made by the application is planned for future versions. This can reveal not only the content on which the model gave the least satisfactory performance but also ways to finetune and improve the user satisfaction.
