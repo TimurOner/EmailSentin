@@ -44,6 +44,7 @@ COPY requirements.txt ${LAMBDA_TASK_ROOT}
 RUN pip install --no-cache-dir -r requirements.txt
 RUN mkdir -p /nltk_data
 RUN python -m nltk.downloader -d /nltk_data vader_lexicon punkt stopwords wordnet
+RUN pip install torch==2.3.1+cpu -f https://download.pytorch.org/whl/cpu/torch_stable.html
 RUN pip install flask_cors
 COPY . ${LAMBDA_TASK_ROOT}
 CMD ["lambda_function.handler"]

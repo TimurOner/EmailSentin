@@ -4,5 +4,4 @@ gensim==4.3.3
 numpy==1.26.4
 nltk==3.8.1
 pandas==2.2.2
-torch==2.4.1
 aws-wsgi

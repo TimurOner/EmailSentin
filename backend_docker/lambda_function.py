@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from flask_basicauth import BasicAuth
-import os
+import os, time
 import awsgi 
 from flask_cors import CORS
 from rule_based.pos_neg.pos_neg_run import pos_neg_score
@@ -30,8 +30,26 @@ word2vec_instance_path = os.path.join(os.getcwd(), "lstm_based/models/model1/glo
 path_form_inform_model_wind = r'C:\Users\timur\Documents\GitHub\EmailSentin\backend_docker\lstm_based\models\model1\model_2_atn.pth'
 word2vec_instance_path_wind = r'C:\Users\timur\Documents\GitHub\EmailSentin\backend_docker\lstm_based\models\model1\glove-twitter-25.model'
 
+# Measure total initialization time
+start_total = time.perf_counter()
+print("[INIT] Starting initialization...")
+
+# Load formality model with timing
+start_model = time.perf_counter()
 form_inform_model = mdl1.load_model(path_form_inform_model)
+end_model = time.perf_counter()
+print(f"[INIT] form_inform_model loaded in {end_model - start_model:.2f} seconds")
+
+# Load Word2Vec instance with timing
+start_w2v = time.perf_counter()
 word2vec_instance = KeyedVectors.load(word2vec_instance_path)
+end_w2v = time.perf_counter()
+print(f"[INIT] word2vec_instance loaded in {end_w2v - start_w2v:.2f} seconds")
+
+end_total = time.perf_counter()
+print(f"[INIT] Total initialization time: {end_total - start_total:.2f} seconds")
+
+
 
 @app.route('/')
 # @basic_auth.required

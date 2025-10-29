@@ -1,0 +1,24 @@
+config:
+  target: "https://t6w6xtyqi9.execute-api.eu-north-1.amazonaws.com"
+  # ↑ Base URL only (no path)
+  
+  phases:
+    - duration: 30
+      arrivalRate: 5
+
+scenarios:
+  - name: "Sentiment Analysis POST"
+    flow:
+      - post:
+          url: "/stage-1/process_input"
+          # ↑ Full path from base URL
+          headers:
+            Content-Type: "application/json"
+          json:
+            user_input: "I hope this message finds you well. I am writing to kindly request [briefly state what you need, e.g., more information regarding the upcoming meeting/project]. Please let me know if you need any additional details from my side."
+            lex_name: "AFINN-96"
+            method_name: "Formality Analysis"
+          expect:
+            - statusCode: 200
+            - contentType: json
+            - hasProperty: "score"
