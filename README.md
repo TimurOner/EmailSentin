@@ -1,6 +1,26 @@
 ## 📝 Project Intro
 
-## 📄 Project Description
+I am happy to present a simple Flask based web-application for analysis of sentiment of text. This application is very useful for fast and surface level sentiment analysis of e-mails, passages and paragraphs. One of main reasons for developing this web application is to demonstrate that even basic and lightweight machine learning models can perform quite well for certain tasks without need to load and finetune LLMs that usually require either expensive hardware or API subscription to utilize. The light-weight application has 2 main functionalities as of July 2025: performing a sentiment analysis of the text by its polarity (whether the text conveys positive or negative sentiment) using a lexicon-based approach utilizing lexicons like VADER and AFINN and performing an analysis of the formality level of a given text and highlighting the words with colour that changes its hue based on their contribution to the final formality assessment. The formality score is calculated based on bidirectional LSTM that was trained on the ENRON mail dataset. Because lexicon based models don’t require any training procedure, we discussed training pipeline only for the BiLSTM based formality classifier. A manual labelling procedure was called for since ENRON dataset that is used to train the formality classifier doesn’t include labels for formality. 3 independent labellers made sure that the annotations for the samples in the training set are as objective as possible.
+
+## 📄 Dataset Preparation & Overview
+
+The training set is based on the publicly available ENRON email corpus, which contains over 500,000 emails from the ENRON company prior to its collapse in 2001. This corpus is widely used in natural language processing research due to its authenticity as a source of corporate communication patterns.
+
+Emails were included in partitions to ensure diversity in content and balance between the classes formal and informal. Messages containing only links, spam, or mostly numerical/graphical content were excluded from the selection process.
+
+Since labeling the entire corpus was not feasible, a systematic sampling approach was followed. We created 10 balanced splits of 150 messages each, totaling 1,500 labeled messages. Three human annotators individually labeled each message as formal or informal. Cases of disagreement were resolved through consensus-building sessions to ensure high-quality annotations. This sampling approach maintained class balance and ensured variation in formality across all partitions.
+
+The ENRON corpus introduced challenges due to the prevalence of threaded conversations, where multiple replies in a single thread may differ in formality. To avoid ambiguous supervision signals, messages were isolated so that each training instance corresponded to a single, self-contained email. This ensured cleaner and more reliable training signals for the model.
+
+🧹 Data Preprocessing Steps
+
+Tokenization: Split user input into tokens using nltk.word_tokenize.
+
+Stopword Removal: Removed common English stopwords.
+
+Word Embedding: Used the GloVe-Twitter-25 model to embed each token into a 25-dimensional vector. Inputs were clipped to a maximum of 100 tokens.
+
+A lightweight embedding model was chosen to maintain efficiency given the limited dataset size and computational resources, while still preserving meaningful semantic information from the text.
 
 ## 🏗️ The Architecture
 
@@ -8,4 +28,7 @@
 
 ## 🧪 Testing / Simulation Results
 
+
 ## ⚡ Points for Improvement
+User star-rating system: A feedback mechanism where users can rate the assesments made by the application is planned for future versions. This can reveal not only the content on which the model gave the least satisfactory performance but also ways to finetune and improve the user satisfaction.
+More sentiment types, multimodal capabilities: New sentiment analysis types and multimodal capabilities are planned for future releases.
