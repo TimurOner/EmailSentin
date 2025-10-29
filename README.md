@@ -4,39 +4,23 @@ I am happy to present a simple Flask based web-application for analysis of senti
 
 ## 📄 Dataset Preparation & Overview
 
-The training set is based on the publicly available ENRON email corpus, which contains over 500,000 emails from the ENRON company prior to its collapse in 2001. This corpus is widely used in natural language processing studies for email research due to its authenticity in reflecting corporate communication patterns.
+The training set is based on the publicly available ENRON email corpus, which contains over 500,000 emails from the ENRON company prior to its collapse in 2001. This corpus is widely used in natural language processing research due to its authenticity as a source of corporate communication patterns.
 
-Emails were included in partitions to ensure diversity in content and a balanced representation of formal and informal classes. Messages containing only links, spam, or mostly numerical/graphical content were excluded from selection.
+Emails were included in partitions to ensure diversity in content and balance between the classes formal and informal. Messages containing only links, spam, or mostly numerical/graphical content were excluded from the selection process.
 
-Annotation Methodology
+Since labeling the entire corpus was not feasible, a systematic sampling approach was followed. We created 10 balanced splits of 150 messages each, totaling 1,500 labeled messages. Three human annotators individually labeled each message as formal or informal. Cases of disagreement were resolved through consensus-building sessions to ensure high-quality annotations. This sampling approach maintained class balance and ensured variation in formality across all partitions.
 
-Labeling the entire corpus was not feasible, so we applied a systematic sampling approach:
+The ENRON corpus introduced challenges due to the prevalence of threaded conversations, where multiple replies in a single thread may differ in formality. To avoid ambiguous supervision signals, messages were isolated so that each training instance corresponded to a single, self-contained email. This ensured cleaner and more reliable training signals for the model.
 
-10 balanced splits of 150 messages each, totaling 1,500 labeled messages.
+🧹 Data Preprocessing Steps
 
-Each message was evaluated independently by three human annotators and labeled as either formal or informal.
+Tokenization: Split user input into tokens using nltk.word_tokenize.
 
-Disagreements were resolved through consensus-building sessions to ensure quality annotations.
+Stopword Removal: Removed common English stopwords.
 
-Sampling maintained variance in formality levels and balanced class distribution across all partitions.
+Word Embedding: Used the GloVe-Twitter-25 model to embed each token into a 25-dimensional vector. Inputs were clipped to a maximum of 100 tokens.
 
-Emails that contained predominantly links, spam, or numerical/graphical content were systematically rejected to focus on meaningful text communication.
-
-Data Preprocessing
-
-Threaded conversations in emails posed challenges due to varying levels of formality, which can create ambiguous supervision signals. To address this:
-
-Individual messages were isolated, removing threads with mixed formality patterns to provide cleaner training signals.
-
-Preprocessing steps included:
-
-Tokenization: Using nltk.word_tokenize to split text into tokens.
-
-Stopword Removal: Common English stopwords were removed.
-
-Embedding: Each token converted into a 25-dimensional vector using the glove-twitter-25 embedding model. Inputs were clipped to 100 tokens.
-
-A lightweight embedding model was chosen over larger (200+ dimensional) embeddings due to limited data and computational resources..
+A lightweight embedding model was chosen to maintain efficiency given the limited dataset size and computational resources, while still preserving meaningful semantic information from the text.
 
 ## 🏗️ The Architecture
 
